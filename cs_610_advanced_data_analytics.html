@@ -1,0 +1,765 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CS-610 Midterm Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column with a sticky topic index on wide screens; formula and worked-example blocks set apart by role */
+:root{
+  --bg:#f6f8fa; --surface:#ffffff; --ink:#18222d; --muted:#556271; --line:#d9e0e7;
+  --accent:#1d5f86; --accent-soft:#e3eef5; --warn:#8a5a00; --warn-soft:#fbf1dc; --ok:#25643f; --ok-soft:#e2f2e8;
+  --display:"Newsreader",Georgia,"Times New Roman",serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f151b; --surface:#16202a; --ink:#e3e9ef; --muted:#9aa8b6; --line:#2a3846;
+  --accent:#7cb8dc; --accent-soft:#1a3242; --warn:#e8bd6a; --warn-soft:#3a2e15; --ok:#7fcf9c; --ok-soft:#173326; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --surface:#16202a; --ink:#e3e9ef; --muted:#9aa8b6; --line:#2a3846;
+  --accent:#7cb8dc; --accent-soft:#1a3242; --warn:#e8bd6a; --warn-soft:#3a2e15; --ok:#7fcf9c; --ok-soft:#173326; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:230px minmax(0,1fr);gap:48px;padding-block:40px 80px}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr);gap:24px;padding-block:24px 56px}nav.toc{position:static!important;max-height:none!important}}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;max-height:calc(100vh - 48px);overflow:auto;font-size:14px}
+nav.toc .lbl{font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:t}
+nav.toc a{display:block;padding:6px 10px;border-radius:6px;color:var(--ink);text-decoration:none;counter-increment:t}
+nav.toc a::before{content:counter(t) ". ";color:var(--muted);font-family:var(--mono);font-size:12px}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--accent-soft);outline:none}
+main{min-width:0}
+header.top{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:36px}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:650 clamp(34px,5vw,52px)/1.08 var(--display);margin:12px 0 14px;text-wrap:balance}
+.lede{color:var(--muted);max-width:66ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font:500 12px/1 var(--mono);padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted)}
+section{padding-top:28px;margin-top:28px;border-top:1px solid var(--line);scroll-margin-top:16px}
+section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+h2{font:650 30px/1.15 var(--display);margin:0 0 6px;text-wrap:balance}
+h2 .src{display:block;font:500 12px/1.4 var(--mono);color:var(--muted);margin-top:8px;letter-spacing:0}
+h3{font:600 18px/1.3 var(--body);margin:30px 0 10px}
+h4{font:600 15px/1.3 var(--body);margin:18px 0 6px;color:var(--accent)}
+p,li{max-width:72ch}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+strong{font-weight:600}
+code,.m{font-family:var(--mono);font-size:.92em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:14px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.card h4{margin-top:0}
+.card p{margin:6px 0}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0;font-size:14px}
+.flow span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 11px;font-weight:500}
+.flow i{color:var(--muted);font-style:normal}
+.tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-weight:600;background:var(--accent-soft);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.formula{font-family:var(--mono);background:var(--accent-soft);border-radius:8px;padding:14px 16px;margin:12px 0;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7}
+.example{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:4px 18px 14px;margin:16px 0}
+.example .tag,.note .tag,.trap .tag{font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;display:block;margin:14px 0 6px}
+.example .tag{color:var(--ok)}
+.example pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;margin:8px 0;overflow-x:auto;white-space:pre}
+.trap{background:var(--warn-soft);border-radius:10px;padding:2px 18px 12px;margin:16px 0}
+.trap .tag{color:var(--warn)}
+.note{background:var(--ok-soft);border-radius:10px;padding:2px 18px 12px;margin:16px 0}
+.note .tag{color:var(--ok)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0 16px}
+details[open]{padding-bottom:12px}
+summary{cursor:pointer;padding:12px 0;font-weight:500;list-style-position:outside}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+details .ans{border-top:1px dashed var(--line);padding-top:10px}
+details pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto;white-space:pre;margin:6px 0}
+.check{list-style:none;padding:0;display:grid;gap:8px}
+.check li{display:flex;gap:10px;align-items:flex-start;max-width:none}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.prio{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.prio div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.prio b{display:block;font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.prio .hi b{color:var(--accent)} .prio .md b{color:var(--ok)} .prio .lo b{color:var(--muted)}
+.prio ul{margin:0;padding-left:18px;font-size:14.5px}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Topics">
+  <div class="lbl">Topics</div>
+  <ol>
+    <li><a href="#plan">Exam game plan</a></li>
+    <li><a href="#da">Intro to Data Analytics</a></li>
+    <li><a href="#repos">Databases &amp; Repositories</a></li>
+    <li><a href="#dwh">BI &amp; Data Warehousing</a></li>
+    <li><a href="#dm">Intro to Data Mining</a></li>
+    <li><a href="#stats">Basics of Statistics</a></li>
+    <li><a href="#prep">Data Preprocessing</a></li>
+    <li><a href="#prepnum">Preprocessing Numericals</a></li>
+    <li><a href="#ai">AI to GenAI</a></li>
+    <li><a href="#vec">Vector Databases</a></li>
+    <li><a href="#practice">Practice Questions</a></li>
+    <li><a href="#last">Night-before Checklist</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <div class="eyebrow">CS-610 Advanced Data Analytics · MS Data Science, UET</div>
+  <h1>Midterm Preparation Guide</h1>
+  <p class="lede">Built from all nine lecture files: the 8 slide decks and the Data Preprocessing PDF. Each topic gives the definitions, the comparisons examiners like to ask, and worked numericals. Answers to practice questions are hidden until you click.</p>
+  <div class="meta">
+    <span class="chip">Intro to DA · 232 slides</span><span class="chip">Statistics · 130</span><span class="chip">AI to GenAI · 74</span>
+    <span class="chip">lec03 Preprocessing · 68 pp</span><span class="chip">BI &amp; DWH · 50</span><span class="chip">Preprocessing #1 · 33</span>
+    <span class="chip">Vector DBs · 22</span><span class="chip">Intro to DM · 21</span><span class="chip">Intro to DWH · 17</span>
+  </div>
+</header>
+
+<!-- 1 -->
+<section id="plan">
+  <h2>Exam game plan</h2>
+  <p>The priorities below come from how much space each topic gets in the slides and whether it can be turned into a numerical. Your instructor's own hints take precedence.</p>
+  <div class="prio">
+    <div class="hi"><b>Highest yield</b><ul>
+      <li>Binning (smoothing and discretisation)</li>
+      <li>Min-max, z-score, decimal scaling</li>
+      <li>Covariance, correlation, chi-square</li>
+      <li>Missing-value handling methods</li>
+      <li>OLTP vs OLAP; DW vs Data Mart vs Data Lake</li>
+      <li>Four types of analytics</li>
+    </ul></div>
+    <div class="md"><b>Very likely</b><ul>
+      <li>Inmon's four DW properties</li>
+      <li>ETL stages and load types</li>
+      <li>NOIR variable types</li>
+      <li>Hypothesis testing, H0/H1, p-value rule</li>
+      <li>Parametric vs non-parametric tests</li>
+      <li>SQL vs NoSQL; four NoSQL families</li>
+      <li>AI ⊃ ML ⊃ DL ⊃ GenAI</li>
+    </ul></div>
+    <div class="lo"><b>Know the idea</b><ul>
+      <li>Transformers: attention, Q/K/V, multi-head</li>
+      <li>Vector DB pipeline and similarity metrics</li>
+      <li>PCA and wavelet (concept only)</li>
+      <li>Sampling: SRSWOR, SRSWR, stratified</li>
+      <li>Data roles, file formats, tools, SAS PROCs</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="da">
+  <h2>Introduction to Data Analytics<span class="src">Deck: 1 - Intro to DA.pptx (Dr. Aatif Hussain Warraich; credits Simplilearn, IBM)</span></h2>
+  <p><strong>Data Analytics</strong> is the process of exploring and analysing large datasets to find hidden patterns, unseen trends, correlations and valuable insights. Organisations use it for improved decision making, better customer service, efficient operations and effective marketing.</p>
+
+  <h3>Five steps of data analytics</h3>
+  <div class="flow"><span>1. Understand the problem</span><i>→</i><span>2. Data collection</span><i>→</i><span>3. Data cleaning</span><i>→</i><span>4. Exploration &amp; analysis</span><i>→</i><span>5. Interpret results</span></div>
+  <p>The longer <em>Data Analysis Process</em> version (IBM): set a clear metric → gather data → clean data → analyse and mine data → interpret results → present findings.</p>
+
+  <h3>Four types of analytics</h3>
+  <div class="tbl"><table>
+    <tr><th>Type</th><th>Question</th><th>What it does</th><th>Example</th></tr>
+    <tr><td><strong>Descriptive</strong></td><td>What happened?</td><td>Summarises past events</td><td>Last quarter's sales report</td></tr>
+    <tr><td><strong>Diagnostic</strong></td><td>Why did it happen?</td><td>Digs into descriptive results to find causes</td><td>Why sales fell in one region</td></tr>
+    <tr><td><strong>Predictive</strong></td><td>What will happen next?</td><td>Uses historical data and trends to forecast</td><td>Next month's demand</td></tr>
+    <tr><td><strong>Prescriptive</strong></td><td>What should be done?</td><td>Weighs likely outcomes of different decisions to recommend action</td><td>Best price or route to choose</td></tr>
+  </table></div>
+
+  <h3>Data professionals</h3>
+  <div class="tbl"><table>
+    <tr><th>Role</th><th>Main job</th><th>Typical question</th></tr>
+    <tr><td>Data Engineer</td><td>Extract, integrate, clean and store data; build repositories and pipelines</td><td>Is the data available, clean and reliable?</td></tr>
+    <tr><td>Data Analyst</td><td>Inspect and clean data, find correlations, apply statistics, visualise findings</td><td>Is there a correlation between sales of product A and B?</td></tr>
+    <tr><td>Data Scientist</td><td>Build predictive models with ML and deep learning</td><td>What share of customers will we lose next quarter?</td></tr>
+    <tr><td>Business / BI Analyst</td><td>Turn insights and predictions into business action; monitor market forces</td><td>What should the business do about it?</td></tr>
+  </table></div>
+  <p>Summary line from the slides: engineers turn raw data into usable data; analysts generate insight; scientists predict the future from the past; business and BI analysts drive decisions.</p>
+  <p><strong>Analyst skills:</strong> technical (spreadsheets, SQL, Python/R, Power BI/Tableau/SAS, big data tools such as Hadoop, Hive and Spark), functional (statistics, analytical, problem-solving, probing, visualisation, project management), and soft skills (collaboration, communication, storytelling, curiosity, intuition).</p>
+
+  <h3>Structured, semi-structured and unstructured data</h3>
+  <div class="tbl"><table>
+    <tr><th>Type</th><th>Definition</th><th>Examples</th></tr>
+    <tr><td>Structured</td><td>Rigid format; rows and columns; well-defined schema</td><td>SQL databases, OLTP systems, spreadsheets, online forms, GPS/RFID sensors</td></tr>
+    <tr><td>Semi-structured</td><td>Some organisation but no fixed schema; uses tags and metadata to build a hierarchy</td><td>XML, JSON, emails, TCP/IP packets, zipped files</td></tr>
+    <tr><td>Unstructured</td><td>No identifiable structure; mostly qualitative; does not fit rows and columns</td><td>Web pages, social media feeds, images, video, audio, PDFs, presentations</td></tr>
+  </table></div>
+
+  <h3>File formats</h3>
+  <ul>
+    <li><strong>Delimited text (CSV, TSV):</strong> values separated by a delimiter such as comma, tab, colon, vertical bar or space.</li>
+    <li><strong>XLSX:</strong> Microsoft's XML-based spreadsheet format. Open, keeps all Excel functions, and cannot store malicious code.</li>
+    <li><strong>XML:</strong> markup language with user-defined tags. Readable by humans and machines, self-descriptive, platform- and language-independent.</li>
+    <li><strong>PDF:</strong> Adobe format that looks the same on every device. Used for legal and financial documents and fillable forms.</li>
+    <li><strong>JSON:</strong> text-based open standard for sending structured data over the web. Language-independent and browser-friendly.</li>
+  </ul>
+
+  <h3>Data sources</h3>
+  <p>Relational databases; flat files and XML datasets (public or private: demographic, economic, point-of-sale, financial, weather); APIs and web services (Twitter/Facebook, stock market, lookup and validation APIs); web scraping (BeautifulSoup, Scrapy, Pandas, Selenium); data streams and feeds (IoT, tickers, click streams; processed with Kafka, Spark, Storm); RSS feeds.</p>
+
+  <h3>Languages</h3>
+  <ul>
+    <li><strong>Query languages</strong> (SQL) access and manipulate data in a database. SQL is portable, English-like, fast on large data, and runs on an interpreter.</li>
+    <li><strong>Programming languages</strong> (Python, R, Java) build applications. Python: Pandas, NumPy/SciPy, BeautifulSoup/Scrapy, Matplotlib/Seaborn. R: statistics, ggplot2, Plotly. Java: used to build Hadoop, Hive and Spark.</li>
+    <li><strong>Shell and scripting</strong> (Unix/Linux shell, PowerShell) automate repetitive operational tasks.</li>
+  </ul>
+
+  <h3>Walmart case study (good for an example answer)</h3>
+  <p>Over 11,500 stores in 27 countries; collects over 2.5 PB of data per hour from 1 million customers; built <strong>Data Café</strong>, an analytics hub that models 200+ data streams including 40 PB of transactional data, and analyses 100M+ social media keywords. Uses: supply-chain management, product assortment, personalised shopping, recommendations, truck route optimisation.</p>
+</section>
+
+<!-- 3 -->
+<section id="repos">
+  <h2>Databases &amp; data repositories<span class="src">Deck: 1 - Intro to DA.pptx, slides 148 to 232</span></h2>
+  <p>A <strong>data repository</strong> is data that has been collected, organised and isolated for business operations, reporting and analysis. Main types: databases, data warehouses, big data stores. A <strong>DBMS</strong> is the set of programs that creates, maintains and queries the database. Database choice depends on data type and structure, querying mechanism, latency, transaction speed and intended use.</p>
+
+  <h3>Relational (RDBMS) vs non-relational (NoSQL)</h3>
+  <div class="tbl"><table>
+    <tr><th>Aspect</th><th>Relational</th><th>NoSQL</th></tr>
+    <tr><td>Schema</td><td>Rigid, predefined</td><td>Flexible or schema-less</td></tr>
+    <tr><td>Data</td><td>Structured</td><td>Structured, semi-structured and unstructured</td></tr>
+    <tr><td>Query</td><td>SQL</td><td>Usually not SQL</td></tr>
+    <tr><td>Transactions</td><td>ACID compliant</td><td>Mostly not ACID compliant</td></tr>
+    <tr><td>Scaling</td><td>Expensive, high-end hardware</td><td>Scale-out on low-cost commodity hardware, distributed across data centres</td></tr>
+    <tr><td>Maturity</td><td>Mature, well documented</td><td>Newer technology</td></tr>
+    <tr><td>Best for</td><td>OLTP, data warehouses (OLAP), IoT</td><td>Big data, high-volume web and mobile apps</td></tr>
+  </table></div>
+  <p><strong>RDBMS advantages:</strong> joins create meaningful information, changes possible while in use, minimal redundancy, easy backup and recovery, ACID compliance. <strong>Limitations:</strong> poor with semi- and unstructured data; migration needs identical schemas; values longer than the field length are lost.</p>
+
+  <h3>Four NoSQL families</h3>
+  <div class="tbl"><table>
+    <tr><th>Type</th><th>How it stores</th><th>Good for</th><th>Not good for</th><th>Examples</th></tr>
+    <tr><td>Key-value</td><td>Pairs of unique key and value (value can be a JSON document)</td><td>Session data, preferences, real-time recommendations, caching</td><td>Querying by value, relationships, multiple keys</td><td>Redis, Memcached, DynamoDB</td></tr>
+    <tr><td>Document</td><td>Each record and its data in one document</td><td>E-commerce, medical records, CRM, analytics</td><td>Complex search, multi-operation transactions</td><td>MongoDB, DocumentDB, CouchDB, Cloudant</td></tr>
+    <tr><td>Column</td><td>Each column stored as a continuous disk entry</td><td>Heavy writes, time-series, weather, IoT</td><td>Complex queries, changing query patterns</td><td>Cassandra, HBase</td></tr>
+    <tr><td>Graph</td><td>Nodes and relationships</td><td>Social networks, recommendations, fraud detection, access management</td><td></td><td>Neo4j, CosmosDB</td></tr>
+  </table></div>
+
+  <h3>Warehouse, mart and lake</h3>
+  <div class="grid2">
+    <div class="card"><h4>Data Warehouse</h4><p>Consolidates data from CRM, billing, ERP and other systems through ETL into one database. The <em>single source of truth</em> for reporting, analytics and data mining.</p></div>
+    <div class="card"><h4>Data Mart</h4><p>A subset of the warehouse for one business area. Isolated security and performance. Main role: business-specific reporting.</p></div>
+    <div class="card"><h4>Data Lake</h4><p>Pool of <strong>raw</strong> data; each element gets a unique ID and metatags. Keeps all source data without exclusions. Main role: predictive and advanced analytics.</p></div>
+    <div class="card"><h4>Big Data Store</h4><p>Distributed compute and storage infrastructure to store, scale and process very large data sets.</p></div>
+  </div>
+
+  <h3>ETL process</h3>
+  <div class="flow"><span>Extract</span><i>→</i><span>Staging area</span><i>→</i><span>Transform</span><i>→</i><span>Load</span><i>→</i><span>Data repository</span><i>→</i><span>Analytics</span></div>
+  <div class="grid2">
+    <div class="card"><h4>Extract</h4><p><strong>Batch:</strong> large chunks moved at scheduled intervals (Stitch, Blendo).</p><p><strong>Stream:</strong> pulled in real time and transformed in transit (Samza, Storm, Kafka).</p></div>
+    <div class="card"><h4>Transform</h4><p>Standardise date formats and units; remove duplicates; filter out unneeded data; enrich data; set key relationships across tables; apply business rules and validation.</p></div>
+    <div class="card"><h4>Load</h4><p><strong>Initial:</strong> populate everything. <strong>Incremental:</strong> apply periodic updates. <strong>Full refresh:</strong> erase the table and reload.</p><p>Load verification checks missing or null values, server performance and load failures.</p></div>
+  </div>
+  <p><strong>Data pipeline</strong> is the wider term: the whole journey of data from one system to another, including ETL. It handles batch and streaming data and usually loads into a data lake (tools: Apache Beam, Dataflow, Kafka).</p>
+</section>
+
+<!-- 4 -->
+<section id="dwh">
+  <h2>BI &amp; Data Warehousing<span class="src">Decks: BI &amp; DWH.pptx (edureka), Introduction to Data Warehouse.pptx</span></h2>
+  <p><strong>Business Intelligence</strong> transforms raw operational data into useful information for business analysis. Cycle: data gathering → data analysis → business action planning → business growth. BI built on a data warehouse extracts data from operational systems, cleans and integrates it, and loads it into the warehouse, where it is trusted enough for decisions.</p>
+  <p><strong>Why a warehouse?</strong> Data spread across Oracle, SAP HANA, SQL Server and others cannot be visualised directly. It must first be integrated and processed.</p>
+
+  <h3>Definition and Inmon's four properties</h3>
+  <p>"A Data Warehouse is a <strong>subject-oriented, integrated, time-variant and non-volatile</strong> collection of data in support of management's decision-making process." Bill Inmon, father of data warehousing.</p>
+  <div class="tbl"><table>
+    <tr><th>Property</th><th>Meaning</th></tr>
+    <tr><td>Subject-oriented</td><td>Organised by business subject (sales, customers), not by application</td></tr>
+    <tr><td>Integrated</td><td>Data on a subject from disparate sources stored in one place, with consistent formats</td></tr>
+    <tr><td>Time-variant</td><td>Stored as a series of snapshots, each for a period of time</td></tr>
+    <tr><td>Non-volatile</td><td>Data is normally not updated or deleted once loaded</td></tr>
+  </table></div>
+  <p>Other points: the warehouse is kept separate from operational databases; it is not reloaded every time new data enters the database; it cannot be bought off the shelf and must be designed for the company's needs.</p>
+
+  <h3>OLTP vs OLAP (very likely question)</h3>
+  <div class="tbl"><table>
+    <tr><th>OLTP (operational database)</th><th>OLAP (data warehouse)</th></tr>
+    <tr><td>Current data</td><td>Historical data</td></tr>
+    <tr><td>Runs the business</td><td>Analyses the business</td></tr>
+    <tr><td>Entity-Relationship model</td><td>Star, Snowflake and Fact Constellation schemas</td></tr>
+    <tr><td>Primitive, highly detailed data</td><td>Summarised, consolidated data</td></tr>
+    <tr><td>Mainly writes</td><td>Mainly reads</td></tr>
+    <tr><td>100 MB to 1 GB</td><td>100 GB to 1 TB</td></tr>
+    <tr><td>Fast, high performance</td><td>Highly flexible but not fast</td></tr>
+    <tr><td>Tens of records per query</td><td>Millions of records per query</td></tr>
+    <tr><td>Supermarket till, bank transaction, railway booking</td><td>Bank manager checking ATM usage; insurer counting policies per agent</td></tr>
+  </table></div>
+
+  <h3>Data warehouse vs data mart</h3>
+  <div class="tbl"><table>
+    <tr><th>Data Warehouse</th><th>Data Mart</th></tr>
+    <tr><td>Enterprise-wide</td><td>Department-wide</td></tr>
+    <tr><td>Multiple subject areas</td><td>Single subject area</td></tr>
+    <tr><td>Many data sources</td><td>Limited sources</td></tr>
+    <tr><td>Large storage</td><td>Limited storage</td></tr>
+    <tr><td>Longer to build</td><td>Shorter to build</td></tr>
+  </table></div>
+  <div class="grid2">
+    <div class="card"><h4>Dependent data mart</h4><p>OLTP → central DWH → data mart.</p></div>
+    <div class="card"><h4>Independent data mart</h4><p>Source → data mart directly. Suits small organisations or groups.</p></div>
+    <div class="card"><h4>Hybrid data mart</h4><p>Fed from both OLTP systems and the DWH.</p></div>
+  </div>
+  <p><strong>Metadata</strong> is data about data. In a DWH it defines the source (flat file, relational DB), which table is source and which is target, and the transformation logic.</p>
+
+  <h3>Architecture</h3>
+  <div class="flow"><span>Data sources (DB, flat files)</span><i>→</i><span>ETL</span><i>→</i><span>Staging area</span><i>→</i><span>ETL</span><i>→</i><span>Data warehouse (metadata, raw, aggregate)</span><i>→</i><span>Data marts</span><i>→</i><span>User groups</span></div>
+
+  <h3>Telecom example (Intro to DWH deck)</h3>
+  <p>POS software (MySQL) and insurance software (Oracle) hold separate structured data, plus unstructured customer surveys. Business questions such as <em>which store sells most devices and insurance</em> need <strong>aggregation</strong> per store and <strong>normalisation</strong> (for example converting rupees and dollars to one currency) before loading into the warehouse. Flow: OLTP → ETL → DWH → OLAP → analytics.</p>
+  <p><strong>ETL tools:</strong> Apache NiFi, Informatica, Talend. <strong>Enterprise DWs:</strong> Teradata, Amazon Redshift, Snowflake, Greenplum. The Talend demo joined 10,000 customers with 50,000 transactions and filtered quantity ≤ 10 to find low-purchase customers.</p>
+</section>
+
+<!-- 5 -->
+<section id="dm">
+  <h2>Introduction to Data Mining<span class="src">Deck: Intro to DM.pptx</span></h2>
+  <p><strong>Data mining</strong> is the process of turning raw data into useful information: extract data, collect specific business factors, find useful information and analyse it. Example from the slides: a food ordering app owner who does not know where the business is lagging.</p>
+  <h3>Data mining process</h3>
+  <div class="flow"><span>Data extraction</span><i>→</i><span>Pre-processing</span><i>→</i><span>Data mining</span><i>→</i><span>Extracting patterns</span><i>→</i><span>Visualising data</span></div>
+  <p>Pre-processing here means cleaning, removing missing data, understanding variables and transforming into a readable format.</p>
+  <h3>Five methods</h3>
+  <div class="tbl"><table>
+    <tr><th>Method</th><th>Idea</th><th>Example</th></tr>
+    <tr><td>Classification</td><td>Assign a record to a predefined class</td><td>Car or bike</td></tr>
+    <tr><td>Association rule mining</td><td>Find items that occur together</td><td>Customers who buy bread also buy butter</td></tr>
+    <tr><td>Outlier detection</td><td>Find points far from the rest</td><td>Unusual price for a number of pens</td></tr>
+    <tr><td>Clustering</td><td>Group similar records without labels</td><td>Customer segments</td></tr>
+    <tr><td>Regression</td><td>Predict a continuous value</td><td>Sales from advertising spend</td></tr>
+  </table></div>
+  <p><strong>Stack from the slides:</strong> databases (SQL, NoSQL) → data warehouse via ETL (NiFi, Informatica, Talend, Power BI, Teradata, Snowflake, Greenplum) → data mining → pattern evaluation → visualisation (Tableau, D3.js, Matplotlib, Seaborn, ggplot) → knowledge (representation with graphs and ontologies). Textbooks: Tan/Kumar, Han, Dean, Embarak.</p>
+</section>
+
+<!-- 6 -->
+<section id="stats">
+  <h2>Basics of Statistics<span class="src">Deck: Basics of Statistics.pptx (Simplilearn, SAS demos)</span></h2>
+  <p><strong>Statistics</strong> is the mathematical science of the collection, presentation, analysis and interpretation of data. It helps solve complex problems and make decisions by analysing primary data, building a statistical model and predicting outcomes.</p>
+  <ul>
+    <li><strong>Statistical (quantitative) analysis:</strong> collecting, exploring and presenting large amounts of data to identify patterns and trends.</li>
+    <li><strong>Non-statistical (qualitative) analysis:</strong> generic information such as text, sound, still and moving images.</li>
+  </ul>
+
+  <h3>Descriptive vs inferential</h3>
+  <div class="grid2">
+    <div class="card"><h4>Descriptive statistics</h4><p>Organises data and summarises its main characteristics numerically or graphically: average, mode, SD, correlation. Example: record heights, report max, min and average.</p></div>
+    <div class="card"><h4>Inferential statistics</h4><p>Uses probability theory to generalise from a sample to the population and to model relationships between variables. Example: classify a population as tall, medium or small from a sample.</p></div>
+  </div>
+
+  <h3>Key terms</h3>
+  <div class="tbl"><table>
+    <tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td>Population</td><td>The whole group data is collected from</td><td>All students at UET</td></tr>
+    <tr><td>Sample</td><td>A subset of the population</td><td>200 students surveyed</td></tr>
+    <tr><td>Variable</td><td>A characteristic that differs between members</td><td>Age, height, gender</td></tr>
+    <tr><td>Quantitative</td><td>Differs in quantity</td><td>Weight; number of people in a car</td></tr>
+    <tr><td>Qualitative (attribute)</td><td>Differs in quality</td><td>Colour; degree of car damage</td></tr>
+    <tr><td>Discrete</td><td>No value possible between two given values</td><td>Number of children</td></tr>
+    <tr><td>Continuous</td><td>Any value possible between two given values</td><td>Time for a 100 m run</td></tr>
+  </table></div>
+
+  <h3>Four types of statistical measures</h3>
+  <div class="tbl"><table>
+    <tr><th>Measure</th><th>Tells you</th><th>Statistics</th></tr>
+    <tr><td>Frequency</td><td>How often a value occurs</td><td>Count, percentage</td></tr>
+    <tr><td>Central tendency</td><td>Where values cluster</td><td>Mean, median, mode</td></tr>
+    <tr><td>Spread (dispersion)</td><td>How varied the values are</td><td>Standard deviation, variance, quartiles</td></tr>
+    <tr><td>Position</td><td>Exact location of a value in the dataset</td><td>Percentiles, quartiles, standard (z) scores</td></tr>
+  </table></div>
+
+  <h3>Levels of measurement (NOIR)</h3>
+  <div class="tbl"><table>
+    <tr><th>Level</th><th>Order?</th><th>Equal intervals?</th><th>True zero?</th><th>Example</th></tr>
+    <tr><td>Nominal</td><td>No</td><td>No</td><td>No</td><td>Gender, blood group</td></tr>
+    <tr><td>Ordinal</td><td>Yes</td><td>No (gaps unclear)</td><td>No</td><td>Cup size S/M/L; rating bad/good/best</td></tr>
+    <tr><td>Interval</td><td>Yes</td><td>Yes</td><td>No</td><td>Temperature in °F</td></tr>
+    <tr><td>Ratio</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Length in inches, weight, income</td></tr>
+  </table></div>
+  <div class="trap"><span class="tag">Exam trap</span>0 °F does not mean "no temperature", so 80 °F is not twice as hot as 40 °F. That is why Fahrenheit is interval, not ratio. The slides also list "distance between two train compartments" as interval.</div>
+
+  <h3>Hypothesis testing</h3>
+  <p>An inferential technique to decide whether a sample gives enough evidence that a condition holds for the whole population.</p>
+  <div class="flow"><span>State a hypothesis about a population parameter</span><i>→</i><span>Take a random sample</span><i>→</i><span>Analyse sample properties</span><i>→</i><span>Test whether conclusions hold for the population</span></div>
+  <ul>
+    <li><strong>H0 (null):</strong> no difference or variation exists. Assumed true unless there is strong evidence against it.</li>
+    <li><strong>H1 (alternative):</strong> any hypothesis other than the null. Accepted when H0 is rejected.</li>
+    <li><strong>Medicine example:</strong> H0 = the medicine is safe. To reject H0 you must show it is unsafe.</li>
+    <li><strong>Decision rule:</strong> if p-value ≤ α, reject H0. If p-value &gt; α, fail to reject H0.</li>
+  </ul>
+  <div class="example"><span class="tag">SAS demo (one-sample t-test)</span>
+    <pre>Data Aging; input Aging; Cards; ... ; Run;
+Proc ttest Data=Aging H0=6 Alpha=0.05;
+  Var Aging;
+Run;</pre>
+    <p>Output p-value (Pr &gt; |t|) = 0.50 &gt; α = 0.05, so the result was <strong>fail to reject H0</strong>.</p>
+  </div>
+
+  <h3>Parametric vs non-parametric tests</h3>
+  <div class="grid2">
+    <div class="card"><h4>Parametric</h4><p>Assume a probability distribution (normally distributed data) with known parameters.</p><p><strong>Pros:</strong> gives parameters and confidence intervals; good for modelling; shows relationships between variables; no need to rank data.</p><p><strong>Cons:</strong> needs normal data; works only for variables, not attributes.</p></div>
+    <div class="card"><h4>Non-parametric</h4><p>Used when population parameters are unknown; no strict distribution assumptions; often rank-based.</p><p><strong>Pros:</strong> simple; fewer assumptions; results similar to parametric.</p><p><strong>Cons:</strong> less efficient; hard to do by hand on large samples.</p></div>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>Test</th><th>Use it when</th><th>Slide example</th></tr>
+    <tr><td>t-test</td><td>Compare a mean with a value, or two means (independent or paired)</td><td>Is mean aging = 6?</td></tr>
+    <tr><td>ANOVA</td><td>Compare means of 3 or more groups (generalised t-test)</td><td>Monthly shopping spend in East, West, North, South</td></tr>
+    <tr><td>Chi-square</td><td>Compare observed counts with expected counts</td><td>Do men and women differ in buying items of $500+?</td></tr>
+    <tr><td>Linear regression</td><td>Simple: one predictor. Multiple: several predictors</td><td>Sales from TV, radio and newspaper spend</td></tr>
+    <tr><td>Wilcoxon signed-rank</td><td>Two related or matched samples</td><td>Before and after scores</td></tr>
+    <tr><td>Wilcoxon rank-sum</td><td>Test H0 using ranks of observations (two independent samples)</td><td></td></tr>
+    <tr><td>Kruskal-Wallis H</td><td>Rank-based comparison of independent samples of equal or unequal size (non-parametric ANOVA)</td><td></td></tr>
+  </table></div>
+  <div class="trap"><span class="tag">Watch this</span>Your slides list chi-square under parametric tests. Most textbooks class it as non-parametric. In the exam, follow the slides, and add one line that it is usually treated as non-parametric if the question allows discussion.</div>
+
+  <h3>SAS procedures for descriptive statistics</h3>
+  <div class="tbl"><table>
+    <tr><th>PROC</th><th>Does</th></tr>
+    <tr><td>PRINT</td><td>Prints all variables in a dataset</td></tr>
+    <tr><td>CONTENTS</td><td>Describes dataset structure</td></tr>
+    <tr><td>MEANS</td><td>Summary statistics (N, mean, SD, min, max)</td></tr>
+    <tr><td>FREQ</td><td>One-way to n-way frequency and cross-tab tables</td></tr>
+    <tr><td>UNIVARIATE</td><td>Basic statistical analysis with high-resolution graphics</td></tr>
+    <tr><td>GCHART</td><td>Block, horizontal bar, vertical bar, pie, donut and star charts</td></tr>
+    <tr><td>BOXPLOT</td><td>Side-by-side box-and-whisker plots by group</td></tr>
+    <tr><td>GPLOT</td><td>2-D graphs: scatter, overlay, bubble, log plots</td></tr>
+  </table></div>
+</section>
+
+<!-- 7 -->
+<section id="prep">
+  <h2>Data Preprocessing: concepts<span class="src">Deck: Data Preprocessing - 1.pptx · PDF: lec03-DataPreprocessing.pdf (Han &amp; Kamber, ch. 3)</span></h2>
+  <p>Real-world data is <strong>dirty</strong>: incomplete, noisy, inconsistent, duplicated. Low-quality data gives low-quality mining results (<em>garbage in, garbage out</em>). Preprocessing turns raw data into meaningful data and improves both the quality of the patterns and the speed of mining.</p>
+
+  <h3>Six dimensions of data quality</h3>
+  <div class="tbl"><table>
+    <tr><th>Dimension</th><th>Question</th><th>Typical cause of failure</th></tr>
+    <tr><td>Accuracy</td><td>Is it correct?</td><td>Entry errors; users picking the default "January 1" birthday</td></tr>
+    <tr><td>Completeness</td><td>Is anything missing?</td><td>Attribute not recorded or thought unimportant at entry</td></tr>
+    <tr><td>Consistency</td><td>Does it agree with itself?</td><td>Different department codes or date formats</td></tr>
+    <tr><td>Timeliness</td><td>Is it up to date?</td><td>Late updates</td></tr>
+    <tr><td>Believability</td><td>Do users trust it?</td><td>Past errors</td></tr>
+    <tr><td>Interpretability</td><td>Is it easy to understand?</td><td>Unclear codes</td></tr>
+  </table></div>
+  <p>Kinds of dirty data: <strong>incomplete</strong> (Occupation = ""), <strong>noisy</strong> (Salary = −10), <strong>inconsistent</strong> (Age = 42 but Birthday = 03/07/2010; ratings changed from 1,2,3 to A,B,C), <strong>intentional / disguised missing</strong> (everyone born on 1 January).</p>
+
+  <h3>Five major tasks</h3>
+  <div class="tbl"><table>
+    <tr><th>Task</th><th>What it does</th><th>Techniques</th></tr>
+    <tr><td>Cleaning</td><td>Fill missing values, smooth noise, find or remove outliers, fix inconsistencies</td><td>Imputation, binning, regression, clustering</td></tr>
+    <tr><td>Integration</td><td>Merge multiple sources into one coherent store</td><td>Schema integration, entity resolution, correlation analysis</td></tr>
+    <tr><td>Reduction</td><td>Smaller representation giving (almost) the same results</td><td>Dimensionality reduction, numerosity reduction, compression</td></tr>
+    <tr><td>Transformation</td><td>Convert to forms suitable for mining</td><td>Normalisation, aggregation, attribute construction, smoothing</td></tr>
+    <tr><td>Discretisation</td><td>Map numeric values to intervals or concept labels</td><td>Binning, histogram, clustering, decision tree, correlation (ChiMerge)</td></tr>
+  </table></div>
+
+  <h3>Handling missing values</h3>
+  <p>Why values go missing: equipment malfunction, deleted because inconsistent, misunderstanding at entry, not considered important, history not kept, or not applicable (income for children).</p>
+  <ol>
+    <li><strong>Ignore / delete the tuple.</strong> Usual when the class label is missing. Poor when the missing rate varies a lot between attributes.</li>
+    <li><strong>Fill manually.</strong> Tedious and often infeasible.</li>
+    <li><strong>Global constant</strong> such as "Unknown". Risk: the algorithm may treat "Unknown" as a real category.</li>
+    <li><strong>Attribute mean / median / mode.</strong></li>
+    <li><strong>Mean of the same class.</strong> Smarter.</li>
+    <li><strong>Most probable value</strong> from regression, Bayesian inference or a decision tree. Most popular, because it uses the most information from the present data.</li>
+  </ol>
+  <div class="example"><span class="tag">Slide example: salary imputation</span>
+<pre>Dev     Exp  Salary
+Java    1    20000
+Python  4    ?
+Java    1.5  25000
+Python  2    40000
+Python  4    80000
+Java    2    ?
+
+Overall mean   = (20000+25000+40000+80000)/4 = 41,250  → both blanks = 41,250
+Class mean     Java   = (20000+25000)/2 = 22,500  → Java blank
+               Python = (40000+80000)/2 = 60,000  → Python blank</pre>
+  </div>
+
+  <h3>Noisy data</h3>
+  <p><strong>Noise</strong> is random error or variance in a measured variable. Smoothing techniques: <strong>binning</strong> (sort, partition into bins, smooth by means, medians or boundaries), <strong>regression</strong> (fit a function), <strong>clustering</strong> (detect and remove outliers), and combined computer and human inspection.</p>
+  <p><strong>Cleaning as a process:</strong> discrepancy detection using metadata (domain, range, distribution) and uniqueness, consecutive and null rules; values more than 2 SD from the mean flagged as outliers; <em>data scrubbing</em> (domain knowledge such as postcodes, spell-check), <em>data auditing</em> (find rules and violators); migration and ETL tools; Potter's Wheel as an interactive cleaning tool.</p>
+
+  <h3>Data integration problems</h3>
+  <ul>
+    <li><strong>Schema integration:</strong> <code>A.cust-id</code> and <code>B.cust-#</code> mean the same thing.</li>
+    <li><strong>Entity identification:</strong> Bill Clinton = William Clinton.</li>
+    <li><strong>Value conflicts:</strong> same entity, different values because of different units or scales (metric vs British).</li>
+    <li><strong>Redundancy:</strong> the same attribute under different names, or a derivable attribute (annual revenue). Detect with <strong>χ² for nominal</strong> data, and <strong>correlation coefficient and covariance for numeric</strong> data.</li>
+  </ul>
+
+  <h3>Data transformation strategies</h3>
+  <p>Smoothing, attribute (feature) construction, aggregation, normalisation, discretisation, concept hierarchy generation. Normalisation gives all attributes equal weight, which matters for distance-based methods such as k-NN, clustering and neural networks.</p>
+
+  <h3>Discretisation</h3>
+  <div class="grid2">
+    <div class="card"><h4>Unsupervised (no class label)</h4><p>Binning (equal-width, equal-frequency); histogram analysis; cluster analysis.</p></div>
+    <div class="card"><h4>Supervised (uses class label)</h4><p>Decision tree: top-down splitting using <strong>entropy</strong>.</p><p>ChiMerge: bottom-up, starts with each value as an interval and merges the adjacent pair with the <strong>lowest χ²</strong> (most similar class distributions) until a stopping rule.</p></div>
+  </div>
+  <p><strong>Concept hierarchy:</strong> maps low-level values to general concepts, such as price → inexpensive / moderate / expensive, or street → city → province → country. Can be set by users or generated from the data distribution.</p>
+
+  <h3>Data reduction</h3>
+  <div class="grid2">
+    <div class="card"><h4>Dimensionality reduction</h4><p>Fights the <strong>curse of dimensionality</strong>: in high dimensions data becomes sparse and distance and density lose meaning.</p>
+      <p><strong>Attribute subset selection</strong> removes redundant attributes (price and sales tax) and irrelevant ones (student ID to predict grade). Approaches: brute force, embedded, filter. Heuristics for 2<sup>n</sup> subsets: best single attribute, step-wise forward selection, step-wise backward elimination, combined, decision tree induction.</p>
+      <p><strong>Attribute creation:</strong> extraction (pixels → features), mapping to a new space (wavelet, PCA), construction (area = height × width).</p></div>
+    <div class="card"><h4>Numerosity reduction</h4><p><strong>Data cube aggregation:</strong> quarterly sales → annual sales; cubes hold precomputed summaries for OLAP.</p>
+      <p><strong>Sampling:</strong> works if the sample is representative.</p>
+      <ul><li>SRSWOR: selected items removed from population</li><li>SRSWR: items stay and can be picked again</li><li>Stratified: sample from each group (equally or in proportion), useful for skewed data such as youth / middle-aged / senior</li></ul>
+      <p>Also clustering.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h4>PCA</h4><p>Finds k ≤ n orthogonal vectors (principal components) that best represent the data. Steps: normalise → compute orthonormal components → each record is a linear combination of them → sort by significance (variance) → drop the weak ones. Unlike subset selection, PCA <em>combines</em> attributes into new ones.</p></div>
+    <div class="card"><h4>Discrete Wavelet Transform</h4><p>Linear signal-processing method that turns a vector into wavelet coefficients of the same length. Keep only the strongest coefficients and set the rest to 0, giving a sparse, compressed representation. Slide example: [2,2,0,2,3,5,4,4] → [23/4, −11/4, 1/2, 0, 0, −1, −1, 0].</p></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="prepnum">
+  <h2>Preprocessing numericals<span class="src">All formulas and examples from lec03-DataPreprocessing.pdf, rechecked</span></h2>
+
+  <h3>Binning for smoothing</h3>
+  <div class="example"><span class="tag">Worked example: price = 4, 8, 15, 21, 21, 24, 25, 28, 34 (3 equal-frequency bins)</span>
+<pre>Bins:          B1: 4, 8, 15     B2: 21, 21, 24    B3: 25, 28, 34
+By means:      B1: 9, 9, 9      B2: 22, 22, 22    B3: 29, 29, 29
+By medians:    B1: 8, 8, 8      B2: 21, 21, 21    B3: 28, 28, 28
+By boundaries: B1: 4, 4, 15     B2: 21, 21, 24    B3: 25, 25, 34</pre>
+    <p>Boundaries: each value moves to the nearer of the bin's min or max. 8 is 4 away from 4 and 7 away from 15, so it becomes 4.</p>
+  </div>
+
+  <h3>Binning for discretisation</h3>
+  <div class="example"><span class="tag">price = 5, 10, 11, 13, 15, 35, 50, 55, 72, 89, 204, 215 (3 bins)</span>
+<pre>Equal-width: width = (215 − 5) / 3 = 70  → [5,75) [75,145) [145,215]
+  bin1: 5,10,11,13,15,35,50,55,72   bin2: 89   bin3: 204,215
+  labels: 1 1 1 1 1 1 1 1 1 2 3 3
+
+Equal-frequency: 12 / 3 = 4 values per bin
+  bin1: 5,10,11,13   bin2: 15,35,50,55   bin3: 72,89,204,215
+  labels: 1 1 1 1 2 2 2 2 3 3 3 3
+
+Clustering (split at 2 biggest gaps: 15→35 and 89→204)
+  bin1: 5,10,11,13,15   bin2: 35,50,55,72,89   bin3: 204,215</pre>
+    <p>Equal-width is badly affected by outliers (204, 215 leave bin 2 nearly empty). Equal-frequency gives balanced bins.</p>
+  </div>
+
+  <h3>Normalisation formulas</h3>
+<div class="formula">Min-max:         v' = (v − minA) / (maxA − minA) × (new_max − new_min) + new_min
+Z-score:         v' = (v − Ā) / σA
+Decimal scaling: v' = v / 10^j      j = smallest integer with max(|v'|) &lt; 1</div>
+  <div class="example"><span class="tag">Worked examples</span>
+<pre>Income range $12,000 to $98,000, value $73,600
+  to [0,1]: (73600 − 12000) / (98000 − 12000) = 61600 / 86000 = 0.716
+  to [1,5]: 0.716 × (5 − 1) + 1 = 3.865 (slide shows 3.864)
+
+Z-score, mean $54,000, SD $16,000, value $73,600
+  (73600 − 54000) / 16000 = 1.225
+
+Decimal scaling, A from −986 to 917
+  max |A| = 986 → j = 3 → −986 → −0.986, 917 → 0.917</pre>
+  </div>
+  <div class="trap"><span class="tag">Check the PDF</span>Slide 37 writes the value as $73,000 but the answer 0.716 is for $73,600. With $73,000 the answer would be 61000 / 86000 = 0.709. Show the formula and your substitution clearly so either reading gets marks.</div>
+  <p>When to use which: min-max keeps relationships between values but breaks if a future value falls outside [min, max]; z-score is useful when the true min and max are unknown or when there are outliers.</p>
+
+  <h3>Covariance and correlation (numeric attributes)</h3>
+<div class="formula">Cov(A,B) = Σ(aᵢ − Ā)(bᵢ − B̄) / n  =  E(A·B) − Ā·B̄
+r(A,B)   = Σ(aᵢ − Ā)(bᵢ − B̄) / (n·σA·σB)  =  Cov(A,B) / (σA·σB)      −1 ≤ r ≤ +1</div>
+  <ul>
+    <li>r &gt; 0 positively correlated (higher is stronger); r = 0 no linear correlation; r &lt; 0 negatively correlated.</li>
+    <li>Cov &gt; 0: both tend to be above their means together. Cov &lt; 0: one above while the other is below.</li>
+    <li>Independent ⇒ Cov = 0, but Cov = 0 does <strong>not</strong> imply independence (covariance only measures linear relationships). Only under extra assumptions such as a multivariate normal distribution does it.</li>
+  </ul>
+  <div class="example"><span class="tag">Worked example: two stocks over a week (2,5), (3,8), (5,10), (4,11), (7,14)</span>
+<pre>E(A) = (2+3+5+4+7)/5   = 21/5 = 4.2
+E(B) = (5+8+10+11+14)/5 = 48/5 = 9.6
+E(AB) = (10+24+50+44+98)/5 = 226/5 = 45.2
+Cov(A,B) = 45.2 − 4.2 × 9.6 = 45.2 − 40.32 = 4.88  &gt; 0  → prices rise together</pre>
+  </div>
+
+  <h3>Chi-square test (nominal attributes)</h3>
+<div class="formula">χ² = Σ (oᵢⱼ − eᵢⱼ)² / eᵢⱼ        eᵢⱼ = count(A = aᵢ) × count(B = bⱼ) / n
+degrees of freedom = (rows − 1)(columns − 1)</div>
+  <div class="example"><span class="tag">Worked example: Like Science Fiction vs Play Chess (n = 1500)</span>
+<pre>                    Play chess   Not play   Total
+Like sci-fi         250 (90)     50 (210)    300
+Not like sci-fi     200 (360)  1000 (840)   1200
+Total               450         1050        1500
+
+e(like, play) = 300 × 450 / 1500 = 90   (others the same way)
+
+χ² = (250−90)²/90 + (50−210)²/210 + (200−360)²/360 + (1000−840)²/840
+   = 284.44 + 121.90 + 71.11 + 30.48 = 507.93
+
+df = (2−1)(2−1) = 1; critical value at 0.001 = 10.83
+507.93 &gt; 10.83 → reject "independent" → the attributes are strongly correlated</pre>
+    <p>The larger χ², the more likely the attributes are related. The cells that contribute most are those where observed is far from expected.</p>
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="ai">
+  <h2>From AI to Generative AI<span class="src">Deck: AI to GenAI.pptx</span></h2>
+  <div class="flow"><span>AI</span><i>⊃</i><span>Machine Learning</span><i>⊃</i><span>Deep Learning</span><i>⊃</i><span>Generative AI</span></div>
+  <div class="tbl"><table>
+    <tr><th>Layer</th><th>One-line definition</th><th>Key techniques</th></tr>
+    <tr><td>AI</td><td>Systems that do tasks needing human intelligence (reasoning, planning, search, perception, language)</td><td>Rule-based / expert systems, A*, Minimax with alpha-beta pruning, Prolog, robotics</td></tr>
+    <tr><td>ML</td><td>Learns patterns from data instead of explicit programming</td><td>Supervised (linear/logistic regression, decision tree, SVM, KNN); unsupervised (K-means); reinforcement (reward-based agents)</td></tr>
+    <tr><td>DL</td><td>ML with multi-layer (deep) neural networks; learns features automatically from raw data</td><td>CNN (images), RNN / LSTM (sequences, speech), Transformers (language)</td></tr>
+    <tr><td>GenAI</td><td>DL that creates new content: text, images, audio, code, video</td><td>LLMs (GPT), diffusion models, GANs, foundation models</td></tr>
+  </table></div>
+
+  <h3>Comparison table from the slides</h3>
+  <div class="tbl"><table>
+    <tr><th>Feature</th><th>AI</th><th>ML</th><th>DL</th><th>GenAI</th></tr>
+    <tr><td>Uses rules?</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+    <tr><td>Learns from data?</td><td>Not necessary</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Neural networks?</td><td>Not required</td><td>Optional</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Creates new content?</td><td>Rare</td><td>No</td><td>Sometimes</td><td>Yes</td></tr>
+  </table></div>
+  <p>Not all deep learning is generative: an image classifier is DL but not GenAI; GPT is both. <strong>Traditional ML vs GenAI:</strong> classify spam vs write an email; detect a cat vs draw a new cat; sentiment analysis vs write an essay.</p>
+  <p><strong>Why DL took over:</strong> big data, GPUs, massive compute, better architectures. <strong>Chatbot evolution:</strong> rule-based (hello → Hi) → ML intent classifier → DL (RNN/Transformer, context-aware) → GenAI (GPT-style, original conversation).</p>
+
+  <h3>Evolution of computing approach</h3>
+  <div class="tbl"><table>
+    <tr><th>Stage</th><th>Data</th><th>Computation</th><th>Output</th><th>Pattern</th></tr>
+    <tr><td>Statistics</td><td>Structured numeric</td><td>Formula (Price = 2.5·Size + 10000)</td><td>Prediction</td><td>Linear</td></tr>
+    <tr><td>Classical AI</td><td>Symbolic rules</td><td>Logic and search</td><td>Decision</td><td>Human-defined</td></tr>
+    <tr><td>ML</td><td>Tabular features</td><td>Optimisation (y = w₁x₁ + w₂x₂ + b)</td><td>Prediction</td><td>Learned</td></tr>
+    <tr><td>Neural net</td><td>Vectors</td><td>Weighted sum + activation</td><td>Classification</td><td>Non-linear</td></tr>
+    <tr><td>Deep learning</td><td>Images, text (raw)</td><td>Multi-layer NN (edges → shapes → objects)</td><td>Recognition</td><td>Hierarchical</td></tr>
+    <tr><td>Transformer</td><td>Token sequences</td><td>Attention</td><td>Contextual output</td><td>Global context</td></tr>
+    <tr><td>GenAI</td><td>Prompt tokens</td><td>Probabilistic next-token generation P(wₜ | previous words)</td><td>New content</td><td>Generative distribution</td></tr>
+  </table></div>
+  <p><strong>Limits along the way:</strong> classical AI cannot scale, handle uncertainty or learn; ML needs feature engineering and struggles with images, speech and language; RNNs are slow and lose long-range dependencies.</p>
+
+  <h3>Transformers in five points</h3>
+  <ol>
+    <li><strong>Problem:</strong> RNN/LSTM read word by word, so long sentences lose memory and training is slow ("The animal didn't cross the street because <em>it</em> was too tired").</li>
+    <li><strong>Attention:</strong> the model weights which words matter for understanding a given word (for "it" in the mat example, mat gets 0.8).</li>
+    <li><strong>Self-attention with Query, Key, Value:</strong> each word becomes Q (what I am looking for), K (index), V (information). Q is matched against K to retrieve V. All words are processed in parallel.</li>
+    <li><strong>Multi-head attention:</strong> several heads look at different relationships (grammar, meaning, long-distance), such as "bank" as river or finance.</li>
+    <li><strong>Positional encoding:</strong> adds word order, because "dog bites man" ≠ "man bites dog".</li>
+  </ol>
+  <p><strong>How ChatGPT answers:</strong> tokenise → embeddings → self-attention → many transformer layers → predict next word → repeat word by word. Transformers power GPT, BERT, Gemini and Claude because of parallel training, better context and long-range dependency handling.</p>
+</section>
+
+<!-- 10 -->
+<section id="vec">
+  <h2>Vector databases &amp; AI memory<span class="src">Deck: Vecotr - databases.pptx</span></h2>
+  <p><strong>Problem:</strong> SQL works for structured data and exact matches (<code>WHERE category = 'Laptop'</code>) but does not understand meaning. A query like "something lightweight for gaming and travel" needs meaning-based retrieval.</p>
+  <ul>
+    <li><strong>Vector:</strong> a numerical representation of meaning. Similar sentences give vectors that are close together.</li>
+    <li><strong>Embedding:</strong> the process of converting data into vectors (OpenAI embeddings, BERT, Sentence Transformers, Cohere, Gemini).</li>
+    <li><strong>Analogy:</strong> a traditional DB searches exact book titles; a vector DB finds "Autonomous Agents in Modern AI" for the query "books about intelligent robots".</li>
+  </ul>
+  <h3>Pipeline</h3>
+  <div class="flow"><span>1. Data input (PDFs, web, emails, SQL, APIs)</span><i>→</i><span>2. Chunking</span><i>→</i><span>3. Embedding</span><i>→</i><span>4. Store in vector DB</span><i>→</i><span>5. Embed user query</span><i>→</i><span>6. Similarity search</span><i>→</i><span>LLM / agent</span></div>
+  <p>Chunking is needed because embeddings work better on small semantic units. Similarity is measured with <strong>cosine similarity, Euclidean distance or dot product</strong>. Example: Dog [1.2, 0.9] and Cat [1.1, 0.8] are close; Car [−4.0, 7.2] is far.</p>
+  <h3>Types of AI memory</h3>
+  <div class="tbl"><table>
+    <tr><th>Memory</th><th>What it holds</th><th>Example</th></tr>
+    <tr><td>Short-term</td><td>Current conversation in the context window (limited tokens)</td><td>This chat</td></tr>
+    <tr><td>Long-term</td><td>Persistent storage, usually a vector DB</td><td>Saved preferences</td></tr>
+    <tr><td>Episodic</td><td>Past interactions and events</td><td>User faced a Stripe issue last week</td></tr>
+    <tr><td>Semantic</td><td>Facts and concepts</td><td>User prefers headless WordPress</td></tr>
+    <tr><td>Procedural</td><td>How-to knowledge</td><td>Deployment workflows, coding patterns</td></tr>
+  </table></div>
+  <h3>SQL DB vs vector DB</h3>
+  <div class="tbl"><table>
+    <tr><th>Feature</th><th>SQL DB</th><th>Vector DB</th></tr>
+    <tr><td>Exact search, joins, transactions</td><td>Excellent</td><td>Weak</td></tr>
+    <tr><td>Structured data</td><td>Excellent</td><td>Moderate</td></tr>
+    <tr><td>Semantic search, similarity retrieval</td><td>Poor</td><td>Excellent</td></tr>
+    <tr><td>AI memory, language understanding</td><td>Poor</td><td>Excellent</td></tr>
+  </table></div>
+  <p>Use cases from the slides: e-commerce ("office chair for back pain" matches ergonomic, lumbar support), medical (patients with symptoms similar to early pneumonia), agent memory (recalling a Next.js preference). LLMs need this because of limited context windows and no persistent personal memory.</p>
+</section>
+
+<!-- 11 -->
+<section id="practice">
+  <h2>Practice questions</h2>
+  <p>Try each one on paper first, then open the answer.</p>
+
+  <h3>Numericals</h3>
+  <details><summary>Q1. Smooth 5, 7, 12, 20, 22, 25, 30, 31, 40 into 3 equal-frequency bins by means, medians and boundaries.</summary><div class="ans">
+<pre>Bins:        B1: 5, 7, 12      B2: 20, 22, 25        B3: 30, 31, 40
+Means:       B1: 8, 8, 8       B2: 22.33 ×3          B3: 33.67 ×3
+Medians:     B1: 7, 7, 7       B2: 22, 22, 22        B3: 31, 31, 31
+Boundaries:  B1: 5, 5, 12      B2: 20, 20, 25        B3: 30, 30, 40
+(7 is nearer 5; 22 is nearer 20; 31 is nearer 30)</pre></div></details>
+
+  <details><summary>Q2. Values of A: 200, 300, 400, 600, 1000. Normalise 600 by min-max to [0,1], by z-score (population SD), and by decimal scaling.</summary><div class="ans">
+<pre>Min-max: (600 − 200) / (1000 − 200) = 400 / 800 = 0.5
+
+Z-score: mean = 2500 / 5 = 500
+  deviations: −300, −200, −100, 100, 500
+  squares sum = 90000 + 40000 + 10000 + 10000 + 250000 = 400000
+  σ = √(400000 / 5) = √80000 ≈ 282.84
+  z = (600 − 500) / 282.84 ≈ 0.354
+
+Decimal scaling: max |A| = 1000. j = 3 gives 1000/1000 = 1, which is not &lt; 1,
+  so j = 4 → 600 / 10⁴ = 0.06  (and 1000 → 0.1)</pre>
+  <p>The decimal-scaling case is a deliberate trap: when the maximum is exactly a power of 10, you need one more digit.</p></div></details>
+
+  <details><summary>Q3. 100 shoppers: Male-Buys 30, Male-NotBuy 20, Female-Buys 20, Female-NotBuy 30. Are gender and buying independent at α = 0.05 (critical value 3.84)?</summary><div class="ans">
+<pre>Row totals: Male 50, Female 50   Column totals: Buys 50, Not 50   n = 100
+Every expected count = 50 × 50 / 100 = 25
+χ² = (30−25)²/25 + (20−25)²/25 + (20−25)²/25 + (30−25)²/25 = 1 + 1 + 1 + 1 = 4
+df = 1. 4 &gt; 3.84 → reject independence at 0.05.
+(At 0.001 the critical value is 10.83, so it would not be rejected there.)</pre></div></details>
+
+  <details><summary>Q4. Discretise 4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34 into 3 equal-width bins.</summary><div class="ans">
+<pre>Width = (34 − 4) / 3 = 10 → [4,14), [14,24), [24,34]
+bin1: 4, 8, 9           bin2: 15, 21, 21        bin3: 24, 25, 26, 28, 29, 34</pre></div></details>
+
+  <details><summary>Q5. Given pairs (1,2), (2,4), (3,6), (4,8), (5,10), compute Cov(A,B) and say how A and B move.</summary><div class="ans">
+<pre>E(A) = 3, E(B) = 6
+E(AB) = (2 + 8 + 18 + 32 + 50) / 5 = 110 / 5 = 22
+Cov = 22 − 3 × 6 = 4 &gt; 0 → they rise together
+(σA = √2, σB = √8 = 2√2, so r = 4 / (√2 × 2√2) = 4 / 4 = 1, a perfect positive correlation)</pre></div></details>
+
+  <h3>Short answers</h3>
+  <details><summary>Q6. Differentiate OLTP and OLAP with one example each.</summary><div class="ans"><p>OLTP: current, detailed data; write-heavy; ER model; fast; tens of records per query. Example: bank recording each transaction. OLAP: historical, summarised data; read-heavy; star/snowflake schema; millions of records per query. Example: bank manager analysing ATM usage to decide whether to relocate it.</p></div></details>
+  <details><summary>Q7. State Inmon's definition of a data warehouse and explain each property.</summary><div class="ans"><p>Subject-oriented, integrated, time-variant, non-volatile collection of data supporting management decisions. Subject-oriented: by business subject not application. Integrated: disparate sources, one consistent store. Time-variant: snapshots over periods. Non-volatile: not updated or deleted after loading.</p></div></details>
+  <details><summary>Q8. Compare data warehouse, data mart and data lake.</summary><div class="ans"><p>Warehouse: enterprise-wide, cleaned and integrated, multiple subjects, single source of truth for reporting. Mart: subset for one department or subject, faster to build, isolated security and performance. Lake: raw data in native form with unique IDs and metatags, keeps everything, used for predictive and advanced analytics.</p></div></details>
+  <details><summary>Q9. List the methods for handling missing values and say which is most popular and why.</summary><div class="ans"><p>Ignore tuple; fill manually; global constant; attribute mean/median/mode; class-wise mean; most probable value (regression, Bayesian, decision tree). The most probable value is most popular because it uses the most information from the existing data.</p></div></details>
+  <details><summary>Q10. Classify: blood group, T-shirt size, temperature in °C, monthly salary.</summary><div class="ans"><p>Nominal; ordinal; interval (0 °C is not "no heat"); ratio (true zero).</p></div></details>
+  <details><summary>Q11. A test gives p = 0.03 with α = 0.05. What is your decision? What if α = 0.01?</summary><div class="ans"><p>At 0.05: p ≤ α, reject H0. At 0.01: p &gt; α, fail to reject H0.</p></div></details>
+  <details><summary>Q12. Which test would you use to compare mean income across four provinces? Across two groups? For non-normal data across three groups?</summary><div class="ans"><p>ANOVA; t-test (independent samples); Kruskal-Wallis H-test.</p></div></details>
+  <details><summary>Q13. Name the four NoSQL types with one use case and one product each.</summary><div class="ans"><p>Key-value: session data, Redis. Document: e-commerce catalogue, MongoDB. Column: IoT time-series, Cassandra. Graph: social network or fraud detection, Neo4j.</p></div></details>
+  <details><summary>Q14. Explain the four types of analytics using one business (e.g. a food delivery app).</summary><div class="ans"><p>Descriptive: orders fell 12% last month. Diagnostic: because delivery times rose in two areas. Predictive: orders will fall a further 5% next month if nothing changes. Prescriptive: add riders in those areas during peak hours.</p></div></details>
+  <details><summary>Q15. Why does Cov(A,B) = 0 not prove independence?</summary><div class="ans"><p>Covariance measures only linear relationships. Variables can be related non-linearly (for example B = A² with A symmetric about 0) and still have zero covariance. Only with extra assumptions such as multivariate normality does zero covariance imply independence.</p></div></details>
+  <details><summary>Q16. Explain the curse of dimensionality and two ways to reduce dimensions.</summary><div class="ans"><p>As dimensions grow, data becomes sparse and distance and density lose meaning, which hurts clustering and outlier analysis, and the number of subspaces grows exponentially. Remedies: attribute subset selection (keep a subset of original attributes) and PCA (create fewer new combined attributes). Wavelet transforms also apply.</p></div></details>
+  <details><summary>Q17. Supervised vs unsupervised discretisation, with an example of each.</summary><div class="ans"><p>Unsupervised ignores the class label: equal-width or equal-frequency binning, clustering. Supervised uses the class label: decision tree splitting by entropy, ChiMerge (bottom-up merging of adjacent intervals with the lowest χ²).</p></div></details>
+  <details><summary>Q18. Explain self-attention and why transformers replaced RNNs.</summary><div class="ans"><p>Each token gets Query, Key and Value vectors; a token's query is compared with every key to get attention weights, which mix the values into a context-aware representation. Transformers process all tokens in parallel (faster training), handle long-range dependencies, and scale well; RNNs are sequential, slow, and forget early words in long sentences. Positional encoding restores word order.</p></div></details>
+  <details><summary>Q19. Why can't a SQL database serve as AI memory, and how does a vector DB fix that?</summary><div class="ans"><p>SQL matches exact values and has no notion of meaning, so "return" will not match "refund". A vector DB stores embeddings and retrieves by similarity (cosine, Euclidean, dot product), so related meanings are found. It also gives LLMs persistent memory beyond the context window.</p></div></details>
+  <details><summary>Q20. Describe the three ETL load types and what load verification checks.</summary><div class="ans"><p>Initial load populates all data; incremental load applies periodic updates; full refresh erases and reloads a table. Verification checks for missing or null values, server performance and load failures.</p></div></details>
+</section>
+
+<!-- 12 -->
+<section id="last">
+  <h2>Night-before checklist</h2>
+  <p>Tick each item when you can explain it without notes.</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">Write the 5 analytics steps and the 4 analytics types with their questions</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">Structured vs semi-structured vs unstructured, with two examples each</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3">RDBMS vs NoSQL table; the four NoSQL families</label></li>
+    <li><input type="checkbox" id="c4"><label for="c4">Warehouse vs mart vs lake; three data mart types</label></li>
+    <li><input type="checkbox" id="c5"><label for="c5">ETL: batch vs stream extract, six transform examples, three load types</label></li>
+    <li><input type="checkbox" id="c6"><label for="c6">Inmon's four properties; full OLTP vs OLAP table</label></li>
+    <li><input type="checkbox" id="c7"><label for="c7">Data mining process and five methods</label></li>
+    <li><input type="checkbox" id="c8"><label for="c8">Descriptive vs inferential; NOIR; four measures</label></li>
+    <li><input type="checkbox" id="c9"><label for="c9">H0, H1, p-value rule; t-test, ANOVA, chi-square, regression; Wilcoxon, Kruskal-Wallis</label></li>
+    <li><input type="checkbox" id="c10"><label for="c10">Six data quality dimensions and five preprocessing tasks</label></li>
+    <li><input type="checkbox" id="c11"><label for="c11">Six missing-value methods; class-wise mean calculation</label></li>
+    <li><input type="checkbox" id="c12"><label for="c12">Binning by means, medians, boundaries; equal-width vs equal-frequency</label></li>
+    <li><input type="checkbox" id="c13"><label for="c13">Min-max, z-score and decimal scaling from memory</label></li>
+    <li><input type="checkbox" id="c14"><label for="c14">Covariance, correlation and chi-square formulas, df and decision</label></li>
+    <li><input type="checkbox" id="c15"><label for="c15">Dimensionality vs numerosity reduction; PCA steps; sampling types</label></li>
+    <li><input type="checkbox" id="c16"><label for="c16">AI ⊃ ML ⊃ DL ⊃ GenAI with the comparison table</label></li>
+    <li><input type="checkbox" id="c17"><label for="c17">Attention, Q/K/V, multi-head, positional encoding</label></li>
+    <li><input type="checkbox" id="c18"><label for="c18">Vector DB pipeline, similarity measures, five memory types</label></li>
+  </ul>
+  <div class="note"><span class="tag">In the exam hall</span>For numericals, write the formula first, then the substitution, then the answer with a one-line interpretation (for example "Cov &gt; 0, so they rise together"). For comparisons, use a two-column table. Draw the ETL or DWH architecture flow whenever a question mentions it.</div>
+</section>
+
+<footer>Prepared from the CS-610 lecture files in this course folder. Numerical examples were recalculated; where the slides contain a slip, it is flagged in a "Check the PDF" or "Watch this" box.</footer>
+</main>
+</div>
+
+</body></html>
