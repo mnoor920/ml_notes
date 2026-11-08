@@ -1,0 +1,495 @@
+<title>CS-643 Mid Revision Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* Layout: lecture-notebook — sticky contents rail on the left, one reading column, formula "boards" and exam-tip margins */
+:root {
+  --paper: #f7f9fa;
+  --sheet: #ffffff;
+  --ink: #17232b;
+  --muted: #56656f;
+  --rule: #d9e1e6;
+  --accent: #0d6b78;
+  --accent-soft: #e2f1f3;
+  --mark: #fff1a8;
+  --mark-ink: #4a3d00;
+  --warn: #9a3b12;
+  --warn-soft: #fbeae2;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1619; --sheet: #151e22; --ink: #e4ecef; --muted: #9aabb3; --rule: #2a373d;
+    --accent: #5cc3cf; --accent-soft: #16343a; --mark: #4a4114; --mark-ink: #fff3b8;
+    --warn: #f0a07c; --warn-soft: #3a2219; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1619; --sheet: #151e22; --ink: #e4ecef; --muted: #9aabb3; --rule: #2a373d;
+  --accent: #5cc3cf; --accent-soft: #16343a; --mark: #4a4114; --mark-ink: #fff3b8;
+  --warn: #f0a07c; --warn-soft: #3a2219; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; padding-block: 40px 80px; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-family: var(--display); font-size: 14px; }
+nav.toc p { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+nav.toc a { display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 6px 8px; border-radius: 6px; color: var(--ink); text-decoration: none; }
+nav.toc a span { color: var(--muted); font-family: var(--mono); font-size: 12px; padding-top: 2px; }
+nav.toc a:hover, nav.toc a:focus-visible { background: var(--accent-soft); outline: none; }
+main { min-width: 0; max-width: 740px; }
+header.top { display: grid; gap: 10px; margin-bottom: 40px; }
+.eyebrow { font-family: var(--display); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+h1 { font-family: var(--display); font-weight: 750; font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 62ch; }
+h2 { font-family: var(--display); font-weight: 750; font-size: 1.7rem; line-height: 1.15; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 1.12rem; margin: 28px 0 6px; }
+p, li { max-width: 66ch; }
+section.lec { border-top: 2px solid var(--ink); padding-top: 18px; margin-top: 56px; scroll-margin-top: 20px; }
+.lec-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 8px; }
+.lec-num { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.src { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+code, .mono { font-family: var(--mono); font-size: .88em; }
+.board { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 6px 18px; margin: 14px 0; overflow-x: auto; }
+.board .row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--rule); align-items: center; }
+.board .row:last-child { border-bottom: 0; }
+.board .lbl { font-family: var(--display); font-size: 13px; color: var(--muted); }
+.board .eq { min-width: 0; overflow-x: auto; }
+.tip { background: var(--mark); color: var(--mark-ink); padding: 10px 14px; border-radius: 6px; margin: 14px 0; font-size: 15.5px; }
+.tip b { font-family: var(--display); font-weight: 600; letter-spacing: .02em; }
+.fix { background: var(--warn-soft); color: var(--ink); border-left: 3px solid var(--warn); padding: 10px 14px; margin: 14px 0; font-size: 15.5px; }
+.fix b { color: var(--warn); font-family: var(--display); font-weight: 600; }
+.tablewrap { overflow-x: auto; margin: 14px 0; }
+table { border-collapse: collapse; font-size: 15px; min-width: 420px; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--muted); }
+details { border: 1px solid var(--rule); border-radius: 8px; background: var(--sheet); margin: 8px 0; }
+summary { cursor: pointer; padding: 10px 14px; font-weight: 600; list-style-position: outside; margin-left: 18px; }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details > div { padding: 0 16px 12px 32px; color: var(--ink); }
+details[open] summary { color: var(--accent); }
+.qs h3 { color: var(--accent); }
+.plan { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 16px 0; }
+.day { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; font-size: 14.5px; line-height: 1.45; }
+.day b { display: block; font-family: var(--display); font-size: 13px; color: var(--accent); margin-bottom: 4px; }
+ul.tight { padding-left: 20px; margin: 6px 0; }
+ul.tight li { margin: 3px 0; }
+footer { margin-top: 64px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 14px; }
+a { color: var(--accent); }
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 24px 60px; }
+  nav.toc { position: static; }
+  nav.toc ol { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .board .row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+/* Print / Save as PDF: always light, full-contrast ink, no sidebar, answers shown */
+@media print {
+  :root, :root[data-theme], :root:not([data-theme="light"]) {
+    --paper: #ffffff; --sheet: #ffffff; --ink: #000000; --muted: #333333; --rule: #9aa5ab;
+    --accent: #064b54; --accent-soft: #e2f1f3; --mark: #fff1a8; --mark-ink: #000000;
+    --warn: #8a2f0a; --warn-soft: #fbeae2; color-scheme: light;
+  }
+  @page { size: A4; margin: 16mm 14mm; }
+  html, body { background: #ffffff !important; color: #000000 !important; }
+  body { font-size: 11pt; line-height: 1.5; padding: 0 !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  nav.toc { display: none !important; }
+  .wrap { display: block; max-width: none; padding: 0; }
+  main { max-width: none; }
+  p, li { max-width: none; }
+  mjx-container, mjx-container svg { color: #000000 !important; }
+  section.lec { break-before: page; margin-top: 0; }
+  section#plan { break-before: auto; }
+  h2, h3 { break-after: avoid; }
+  .board, .tip, .fix, details, table, .day { break-inside: avoid; }
+  .board .row { grid-template-columns: 130px minmax(0, 1fr); }
+  .board, .tablewrap, .board .eq { overflow: visible; }
+  details > div { display: block !important; }
+  summary { list-style: none; margin-left: 0; color: #000000 !important; }
+  summary::-webkit-details-marker { display: none; }
+  a { color: #000000; text-decoration: none; }
+}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#plan"><span>—</span>Revision plan</a></li>
+    <li><a href="#l1"><span>L1</span>Introduction</a></li>
+    <li><a href="#l2"><span>L2</span>Linear regression, one variable</a></li>
+    <li><a href="#l3"><span>L3</span>Linear algebra</a></li>
+    <li><a href="#l4"><span>L4</span>Multivariate regression</a></li>
+    <li><a href="#lr"><span>L5–6</span>Logistic regression</a></li>
+    <li><a href="#l7"><span>L7</span>Regularisation</a></li>
+    <li><a href="#l8"><span>L8</span>Neural networks</a></li>
+    <li><a href="#sheet"><span>—</span>Formula sheet</a></li>
+    <li><a href="#issues"><span>—</span>Slide corrections</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <p class="eyebrow">CS-643 Machine Learning · MS Data Science, UET · Mid-term</p>
+  <h1>Mid-term revision guide</h1>
+  <p class="lede">Every mid-term deck in the folder, reviewed slide by slide: the ideas, the formulas that sit inside the slide images, the in-lecture quiz answers, practice questions, and the places where the slides need correcting or updating. Built for the review on Sunday 15 November 2026.</p>
+</header>
+
+<section id="plan" class="lec" style="margin-top:0">
+  <div class="lec-head"><h2>Revision plan to Sunday</h2></div>
+  <p>Seven decks, six days. The later topics reuse the earlier ones, so go in order. Each day: read the section here, open the matching deck, then do the practice questions without looking.</p>
+  <div class="plan">
+    <div class="day"><b>Mon 9 Nov</b>L1 Introduction and L3 Linear algebra</div>
+    <div class="day"><b>Tue 10 Nov</b>L2 Linear regression with one variable</div>
+    <div class="day"><b>Wed 11 Nov</b>L4 Multivariate regression and the normal equation</div>
+    <div class="day"><b>Thu 12 Nov</b>Logistic regression</div>
+    <div class="day"><b>Fri 13 Nov</b>L7 Regularisation</div>
+    <div class="day"><b>Sat 14 Nov</b>L8 Neural networks, then the formula sheet</div>
+    <div class="day"><b>Sun 15 Nov</b>Full review: all practice questions, cold</div>
+  </div>
+</section>
+
+<!-- L1 -->
+<section id="l1" class="lec">
+  <div class="lec-head"><span class="lec-num">Lecture 1</span><h2>Introduction to machine learning</h2></div>
+  <p class="src">Lecture1.pdf · 39 pages</p>
+
+  <h3>Two definitions you must be able to quote</h3>
+  <ul class="tight">
+    <li><b>Arthur Samuel (1959):</b> the field of study that gives computers the ability to learn without being explicitly programmed.</li>
+    <li><b>Tom Mitchell (1998):</b> a program learns from experience <b>E</b> with respect to task <b>T</b> and performance measure <b>P</b> if its performance on T, as measured by P, improves with E.</li>
+  </ul>
+  <p>Where ML is used: database mining (web clicks, medical records, biology), problems you cannot program by hand (autonomous helicopter, handwriting, NLP, computer vision), self-customising programs (Amazon and Netflix recommendations), and understanding human learning.</p>
+
+  <h3>Types of learning</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Type</th><th>What you have</th><th>Output</th><th>Slide examples</th></tr>
+    <tr><td>Supervised: regression</td><td>Labelled data, the "right answers"</td><td>Continuous value</td><td>House price from size</td></tr>
+    <tr><td>Supervised: classification</td><td>Labelled data</td><td>Discrete value (0/1 or a few classes)</td><td>Tumour malignant or benign from size and age</td></tr>
+    <tr><td>Unsupervised</td><td>Unlabelled data</td><td>Structure, such as clusters</td><td>Google News grouping, gene clustering, market segmentation, social networks, computing clusters, astronomy, cocktail party problem</td></tr>
+  </table></div>
+  <p>Also mentioned: reinforcement learning and recommender systems. The cocktail party problem separates two mixed voices with one line of Octave using <code>svd</code>; the point is that the right tool makes a hard problem short.</p>
+
+  <h3>In-lecture quiz answers</h3>
+  <ul class="tight">
+    <li><b>Spam filter, what is T?</b> Classifying emails as spam or not spam. (E is watching you label emails; P is the fraction classified correctly.)</li>
+    <li><b>Inventory sales and hacked accounts:</b> problem 1 is regression, problem 2 is classification.</li>
+    <li><b>Which are unsupervised?</b> Market segments from customer data, and grouping news articles about the same story. The spam filter and diabetes tasks are supervised.</li>
+  </ul>
+  <div class="tip"><b>Exam tip.</b> Expect a T/E/P question on a new scenario. E is always the data or the experience, T is what the system does, P is a number you can measure.</div>
+
+  <div class="qs">
+    <h3>Practice</h3>
+    <details><summary>A self-driving car improves lane keeping by watching human drivers. Name T, E and P.</summary><div>T: keeping the car in its lane. E: recorded human driving. P: for example, the fraction of time spent within the lane, or interventions per 100 km.</div></details>
+    <details><summary>Predicting tomorrow's temperature, and predicting whether it will rain. Regression or classification?</summary><div>Temperature is regression (continuous). Rain or no rain is classification (discrete).</div></details>
+  </div>
+</section>
+
+<!-- L2 -->
+<section id="l2" class="lec">
+  <div class="lec-head"><span class="lec-num">Lecture 2</span><h2>Linear regression with one variable</h2></div>
+  <p class="src">Lecture2.pptx · 49 slides · model, cost function, gradient descent</p>
+
+  <h3>Notation and model</h3>
+  <p>\(m\) = number of training examples, \(x\) = input feature, \(y\) = target, \((x^{(i)}, y^{(i)})\) = the \(i\)-th example. The training set goes into a learning algorithm, which outputs a hypothesis \(h\) that maps size to estimated price.</p>
+  <div class="board">
+    <div class="row"><div class="lbl">Hypothesis</div><div class="eq">\(h_\theta(x) = \theta_0 + \theta_1 x\)</div></div>
+    <div class="row"><div class="lbl">Cost (squared error)</div><div class="eq">\(J(\theta_0,\theta_1) = \dfrac{1}{2m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)^2\)</div></div>
+    <div class="row"><div class="lbl">Goal</div><div class="eq">\(\min_{\theta_0,\theta_1} J(\theta_0,\theta_1)\)</div></div>
+  </div>
+  <p><b>Cost intuition.</b> For fixed \(\theta\), \(h_\theta(x)\) is a function of \(x\) (a line on the data plot). \(J\) is a function of the parameters. With \(\theta_0 = 0\), \(J(\theta_1)\) is a bowl; with both parameters it is a bowl-shaped surface, drawn on the slides as a contour plot. The centre of the contours is the best line.</p>
+  <p>The \(\tfrac{1}{2}\) only makes the derivative tidier; it does not change where the minimum is.</p>
+
+  <h3>Gradient descent</h3>
+  <div class="board">
+    <div class="row"><div class="lbl">Repeat until convergence</div><div class="eq">\(\theta_j := \theta_j - \alpha \dfrac{\partial}{\partial \theta_j} J(\theta_0,\theta_1) \quad (j = 0, 1)\)</div></div>
+    <div class="row"><div class="lbl">For linear regression</div><div class="eq">\(\theta_0 := \theta_0 - \alpha\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)\)<br>\(\theta_1 := \theta_1 - \alpha\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)\,x^{(i)}\)</div></div>
+  </div>
+  <ul class="tight">
+    <li><b>Simultaneous update.</b> Compute both new values into temporaries first, then assign. Updating \(\theta_0\) and then using the new \(\theta_0\) to compute \(\theta_1\) is the "incorrect" version on slide 26.</li>
+    <li><b>Learning rate \(\alpha\).</b> Too small: slow. Too large: overshoots, may fail to converge or diverge.</li>
+    <li><b>Fixed \(\alpha\) still converges.</b> The derivative shrinks near a minimum, so steps get smaller on their own. At a local optimum the derivative is 0 and \(\theta\) stops changing.</li>
+    <li><b>Local optima.</b> In general, different starting points can reach different local minima. The linear regression cost is <b>convex</b>, so it has a single global minimum.</li>
+    <li><b>"Batch"</b> gradient descent uses all \(m\) examples at every step.</li>
+  </ul>
+  <div class="tip"><b>Exam tip.</b> Be ready to derive the two update rules by differentiating \(J\). The chain rule brings down the 2, which cancels the \(\tfrac{1}{2}\).</div>
+
+  <div class="qs">
+    <h3>Practice</h3>
+    <details><summary>Data: (1, 2), (2, 4), (3, 6). Compute \(J(0, 1)\) and \(J(0, 2)\).</summary><div>With \(\theta_1 = 1\) the errors are −1, −2, −3, so \(J = \tfrac{1}{6}(1+4+9) = 14/6 \approx 2.33\). With \(\theta_1 = 2\) every prediction is exact, so \(J = 0\).</div></details>
+    <details><summary>\(\theta_1\) sits at a local minimum. What does one step of gradient descent do?</summary><div>Nothing. The derivative is 0, so \(\theta_1\) stays the same.</div></details>
+    <details><summary>\(J\) increases after every iteration. What is the most likely cause?</summary><div>\(\alpha\) is too large. Reduce it (or check the code for a bug in the gradient).</div></details>
+  </div>
+</section>
+
+<!-- L3 -->
+<section id="l3" class="lec">
+  <div class="lec-head"><span class="lec-num">Lecture 3</span><h2>Linear algebra review</h2></div>
+  <p class="src">Lecture3.pptx · 25 slides · labelled optional, but used in every later lecture</p>
+
+  <ul class="tight">
+    <li><b>Matrix dimension</b> = rows × columns. \(A_{ij}\) is the entry in row \(i\), column \(j\).</li>
+    <li><b>Vector</b> = an \(n \times 1\) matrix. The course uses 1-indexed vectors in maths; Octave is 1-indexed, Python/NumPy is 0-indexed.</li>
+    <li><b>Addition</b> needs matching dimensions. <b>Scalar multiplication</b> multiplies every entry.</li>
+    <li><b>Matrix × vector:</b> \((m \times n)(n \times 1) = m \times 1\). Entry \(y_i\) = row \(i\) of \(A\) dotted with \(x\).</li>
+    <li><b>Matrix × matrix:</b> \((m \times n)(n \times o) = m \times o\). Column \(i\) of \(C\) is \(A\) times column \(i\) of \(B\). Inner dimensions must match.</li>
+    <li><b>Properties:</b> not commutative (\(AB \ne BA\) in general); associative (\((AB)C = A(BC)\)); identity \(I\) gives \(AI = IA = A\).</li>
+    <li><b>Inverse:</b> only for square matrices, \(AA^{-1} = A^{-1}A = I\). Matrices with no inverse are <b>singular</b> or <b>degenerate</b> (for example, the zero matrix).</li>
+    <li><b>Transpose:</b> \(B = A^T\) means \(B_{ij} = A_{ji}\); an \(m \times n\) matrix becomes \(n \times m\).</li>
+  </ul>
+  <h3>The house-price trick (slides 13 and 18)</h3>
+  <p>Put a column of 1s next to the house sizes and multiply by the parameter vector: one matrix-vector product gives every prediction at once. Stack three competing hypotheses as columns of a parameter matrix and one matrix-matrix product gives every prediction of every hypothesis.</p>
+  <div class="board"><div class="row"><div class="lbl">All predictions</div><div class="eq">\(\begin{bmatrix}1 & 2104\\1 & 1416\\1 & 1534\\1 & 852\end{bmatrix}\begin{bmatrix}-40\\0.25\end{bmatrix} = \begin{bmatrix}486\\314\\343.5\\173\end{bmatrix}\)</div></div></div>
+
+  <div class="qs">
+    <h3>Practice</h3>
+    <details><summary>\(A\) is 3 × 2 and \(B\) is 2 × 4. What are the dimensions of \(AB\)? Is \(BA\) defined?</summary><div>\(AB\) is 3 × 4. \(BA\) is not defined: (2 × 4)(3 × 2) has inner dimensions 4 and 3.</div></details>
+    <details><summary>Give an example showing \(AB \ne BA\).</summary><div>\(A = \begin{bmatrix}1&1\\0&0\end{bmatrix}, B = \begin{bmatrix}0&0\\2&0\end{bmatrix}\): \(AB = \begin{bmatrix}2&0\\0&0\end{bmatrix}\), \(BA = \begin{bmatrix}0&0\\2&2\end{bmatrix}\).</div></details>
+  </div>
+</section>
+
+<!-- L4 -->
+<section id="l4" class="lec">
+  <div class="lec-head"><span class="lec-num">Lecture 4</span><h2>Linear regression with multiple variables</h2></div>
+  <p class="src">Lecture4.pptx · 40 slides · features, scaling, learning rate, polynomial regression, normal equation</p>
+
+  <h3>Notation</h3>
+  <p>\(n\) = number of features, \(x^{(i)}\) = feature vector of example \(i\), \(x^{(i)}_j\) = feature \(j\) of example \(i\). From the table: \(x^{(2)} = [1416, 3, 2, 40]^T\) and \(x^{(2)}_3 = 2\). Define \(x_0 = 1\) so that \(x, \theta \in \mathbb{R}^{n+1}\).</p>
+  <div class="board">
+    <div class="row"><div class="lbl">Hypothesis</div><div class="eq">\(h_\theta(x) = \theta_0 x_0 + \theta_1 x_1 + \dots + \theta_n x_n = \theta^T x\)</div></div>
+    <div class="row"><div class="lbl">Cost</div><div class="eq">\(J(\theta) = \dfrac{1}{2m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)^2\)</div></div>
+    <div class="row"><div class="lbl">Gradient descent</div><div class="eq">\(\theta_j := \theta_j - \alpha\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)x^{(i)}_j \quad (j = 0,\dots,n)\)</div></div>
+  </div>
+
+  <h3>Feature scaling and mean normalisation</h3>
+  <p>If size ranges 0–2000 and bedrooms 1–5, the contours of \(J\) are long thin ellipses and gradient descent zig-zags. Scale features to roughly \(-1 \le x_j \le 1\) (Ng accepts −3 to 3 or −⅓ to ⅓).</p>
+  <div class="board"><div class="row"><div class="lbl">Mean normalisation</div><div class="eq">\(x_j \leftarrow \dfrac{x_j - \mu_j}{s_j}\), where \(s_j\) is the range (max − min) or the standard deviation. Do not apply to \(x_0 = 1\).</div></div></div>
+
+  <h3>Choosing the learning rate</h3>
+  <ul class="tight">
+    <li>Plot \(J(\theta)\) against the number of iterations. It should fall on every iteration if \(\alpha\) is small enough.</li>
+    <li>Automatic convergence test: stop when \(J\) falls by less than \(\varepsilon\) (for example \(10^{-3}\)) in one iteration. Ng prefers looking at the plot, because a good \(\varepsilon\) is hard to choose.</li>
+    <li>\(J\) rising, or going up and down: use a smaller \(\alpha\).</li>
+    <li>Try values about 3× apart: 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.</li>
+  </ul>
+
+  <h3>Features and polynomial regression</h3>
+  <p>You can create features: area = frontage × depth. Polynomial regression is linear regression on new features such as \(x, x^2, x^3\) or \(\sqrt{x}\). Scaling now matters a lot: if size is up to 1,000, size³ is up to \(10^9\).</p>
+
+  <h3>Normal equation</h3>
+  <div class="board">
+    <div class="row"><div class="lbl">Closed form</div><div class="eq">\(\theta = (X^T X)^{-1} X^T y\)</div></div>
+    <div class="row"><div class="lbl">Shapes</div><div class="eq">\(X\) is the \(m \times (n+1)\) design matrix (first column all 1s), \(y\) is \(m \times 1\), \(\theta\) is \((n+1) \times 1\).</div></div>
+    <div class="row"><div class="lbl">Code</div><div class="eq"><code>pinv(X'*X)*X'*y</code> in Octave · <code>np.linalg.pinv(X.T @ X) @ X.T @ y</code> in NumPy</div></div>
+  </div>
+  <p>No feature scaling is needed for the normal equation.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Gradient descent</th><th>Normal equation</th></tr>
+    <tr><td>Need to choose \(\alpha\)</td><td>No \(\alpha\)</td></tr>
+    <tr><td>Needs many iterations</td><td>No iteration</td></tr>
+    <tr><td>Works well even when \(n\) is large</td><td>Must invert an \((n+1)\times(n+1)\) matrix, roughly \(O(n^3)\); slow when \(n\) is very large (Ng's rule of thumb: above about 10,000)</td></tr>
+    <tr><td>Works for logistic regression and other models</td><td>Only for linear regression</td></tr>
+  </table></div>
+  <p><b>If \(X^TX\) is non-invertible:</b> redundant features (size in ft² and size in m² are linearly dependent), or too many features (\(m \le n\)). Fix by deleting features or using regularisation. <code>pinv</code> still returns an answer.</p>
+
+  <div class="qs">
+    <h3>Practice</h3>
+    <details><summary>Sizes in the training set range from 852 to 2104 with mean 1476.5. Mean-normalise 2104 using the range.</summary><div>\((2104 - 1476.5) / (2104 - 852) = 627.5 / 1252 \approx 0.50\).</div></details>
+    <details><summary>\(m = 47\) examples, \(n = 5\) features. What are the dimensions of \(X\), \(y\) and \(\theta\)?</summary><div>\(X\): 47 × 6. \(y\): 47 × 1. \(\theta\): 6 × 1.</div></details>
+    <details><summary>\(n = 200{,}000\) features. Gradient descent or normal equation?</summary><div>Gradient descent. Inverting a 200,001 × 200,001 matrix is too expensive.</div></details>
+  </div>
+</section>
+
+<!-- LR -->
+<section id="lr" class="lec">
+  <div class="lec-head"><span class="lec-num">Lectures 5–6</span><h2>Logistic regression</h2></div>
+  <p class="src">Logistic Regression.pptx · 31 slides · classification, hypothesis, decision boundary, cost, optimisation, one-vs-all</p>
+
+  <h3>Why not linear regression for classification?</h3>
+  <p>Thresholding a straight line at 0.5 breaks as soon as one far-out positive example tilts the line, and a line can output values far outside 0–1. Logistic regression keeps \(0 \le h_\theta(x) \le 1\).</p>
+  <div class="board">
+    <div class="row"><div class="lbl">Hypothesis</div><div class="eq">\(h_\theta(x) = g(\theta^T x),\qquad g(z) = \dfrac{1}{1 + e^{-z}}\) (sigmoid / logistic function)</div></div>
+    <div class="row"><div class="lbl">Meaning</div><div class="eq">\(h_\theta(x) = P(y = 1 \mid x;\theta)\); so \(P(y=0 \mid x;\theta) = 1 - h_\theta(x)\). Output 0.7 means "70% chance the tumour is malignant".</div></div>
+    <div class="row"><div class="lbl">Decision rule</div><div class="eq">Predict \(y = 1\) when \(h_\theta(x) \ge 0.5\), which happens exactly when \(\theta^T x \ge 0\).</div></div>
+  </div>
+
+  <h3>Decision boundaries</h3>
+  <ul class="tight">
+    <li>Linear: \(\theta = [-3, 1, 1]^T\) predicts \(y = 1\) when \(x_1 + x_2 \ge 3\). The boundary is the line \(x_1 + x_2 = 3\).</li>
+    <li>Non-linear: \(h_\theta(x) = g(\theta_0 + \theta_1x_1 + \theta_2x_2 + \theta_3x_1^2 + \theta_4x_2^2)\) with \(\theta = [-1, 0, 0, 1, 1]^T\) predicts \(y = 1\) when \(x_1^2 + x_2^2 \ge 1\): outside the unit circle.</li>
+    <li>The boundary is a property of \(\theta\), not of the data set.</li>
+  </ul>
+
+  <h3>Cost function</h3>
+  <p>Squared error with the sigmoid gives a <b>non-convex</b> \(J\) with many local optima. The log cost is <b>convex</b>.</p>
+  <div class="board">
+    <div class="row"><div class="lbl">Per example</div><div class="eq">\(\text{Cost}(h_\theta(x), y) = \begin{cases} -\log(h_\theta(x)) & y = 1\\ -\log(1 - h_\theta(x)) & y = 0\end{cases}\)</div></div>
+    <div class="row"><div class="lbl">Combined</div><div class="eq">\(J(\theta) = -\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\Big[y^{(i)}\log h_\theta(x^{(i)}) + (1 - y^{(i)})\log\big(1 - h_\theta(x^{(i)})\big)\Big]\)</div></div>
+    <div class="row"><div class="lbl">Gradient descent</div><div class="eq">\(\theta_j := \theta_j - \alpha\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)x^{(i)}_j\)</div></div>
+  </div>
+  <p>If \(y = 1\) and \(h \to 1\), cost → 0. If \(y = 1\) and \(h \to 0\), cost → ∞: a confident wrong answer is punished hard. The update rule looks identical to linear regression, but \(h_\theta\) is now the sigmoid, so it is a different algorithm. Feature scaling still helps.</p>
+  <div class="tip"><b>Exam tip.</b> "The update looks the same as linear regression, so are they the same algorithm?" No: the definition of \(h_\theta(x)\) changed.</div>
+
+  <h3>Advanced optimisation</h3>
+  <p>Given code that computes \(J(\theta)\) and its partial derivatives, you can use conjugate gradient, BFGS or L-BFGS instead of gradient descent. Advantages: no need to pick \(\alpha\) (a line search does it) and often faster. Disadvantage: more complex. Octave uses <code>fminunc</code> with <code>optimset('GradObj','on','MaxIter',100)</code>; the Python equivalent is <code>scipy.optimize.minimize(..., jac=True, method='L-BFGS-B')</code>.</p>
+
+  <h3>Multi-class: one-vs-all</h3>
+  <p>For \(K\) classes, train \(K\) binary classifiers \(h^{(i)}_\theta(x) = P(y = i \mid x;\theta)\), each treating class \(i\) as positive and the rest as negative. For a new \(x\), predict \(\arg\max_i h^{(i)}_\theta(x)\).</p>
+
+  <div class="qs">
+    <h3>Practice</h3>
+    <details><summary>\(\theta = [6, -1, 0]^T\). Where is the decision boundary and which side predicts \(y = 1\)?</summary><div>\(6 - x_1 \ge 0\), so \(y = 1\) when \(x_1 \le 6\). The boundary is the vertical line \(x_1 = 6\).</div></details>
+    <details><summary>What is \(g(0)\)? Roughly what is \(g(4.6)\)?</summary><div>\(g(0) = 0.5\). \(g(4.6) \approx 0.99\).</div></details>
+    <details><summary>Four classes. How many logistic regression classifiers does one-vs-all train?</summary><div>Four, one per class.</div></details>
+  </div>
+</section>
+
+<!-- L7 -->
+<section id="l7" class="lec">
+  <div class="lec-head"><span class="lec-num">Lecture 7</span><h2>Regularisation</h2></div>
+  <p class="src">Lecture7.pptx · 20 slides · overfitting, regularised cost, linear and logistic regression</p>
+
+  <h3>Underfitting and overfitting</h3>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>Underfit</th><th>Just right</th><th>Overfit</th></tr>
+    <tr><td>Housing example</td><td>Straight line</td><td>Quadratic</td><td>4th-order polynomial through every point</td></tr>
+    <tr><td>Name</td><td>High bias</td><td>—</td><td>High variance</td></tr>
+    <tr><td>Training cost</td><td>High</td><td>Low</td><td>≈ 0</td></tr>
+    <tr><td>New examples</td><td>Poor</td><td>Good</td><td>Poor: fails to generalise</td></tr>
+  </table></div>
+  <p><b>Fixes for overfitting:</b> (1) reduce the number of features, by hand or with model selection; (2) regularise: keep all features but shrink the parameters. Regularisation works well when there are many features that each contribute a little.</p>
+
+  <h3>Regularised cost</h3>
+  <div class="board">
+    <div class="row"><div class="lbl">Linear regression</div><div class="eq">\(J(\theta) = \dfrac{1}{2m}\Big[\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)^2 + \lambda\sum_{j=1}^{n}\theta_j^2\Big]\)</div></div>
+    <div class="row"><div class="lbl">Logistic regression</div><div class="eq">\(J(\theta) = -\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\Big[y^{(i)}\log h_\theta(x^{(i)}) + (1-y^{(i)})\log(1-h_\theta(x^{(i)}))\Big] + \dfrac{\lambda}{2m}\sum_{j=1}^{n}\theta_j^2\)</div></div>
+  </div>
+  <p>The penalty sum starts at \(j = 1\): \(\theta_0\) is <b>not</b> regularised. Small parameters give a smoother, simpler hypothesis that is less prone to overfitting.</p>
+
+  <h3>Updates</h3>
+  <div class="board">
+    <div class="row"><div class="lbl">\(\theta_0\)</div><div class="eq">\(\theta_0 := \theta_0 - \alpha\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)x^{(i)}_0\)</div></div>
+    <div class="row"><div class="lbl">\(\theta_j,\ j \ge 1\)</div><div class="eq">\(\theta_j := \theta_j\Big(1 - \alpha\dfrac{\lambda}{m}\Big) - \alpha\dfrac{1}{m}\displaystyle\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)x^{(i)}_j\)</div></div>
+    <div class="row"><div class="lbl">Normal equation</div><div class="eq">\(\theta = \big(X^TX + \lambda L\big)^{-1}X^Ty,\quad L = \operatorname{diag}(0, 1, 1, \dots, 1)\ \text{of size } (n+1)\times(n+1)\)</div></div>
+  </div>
+  <p>\(1 - \alpha\lambda/m\) is slightly less than 1, so every step shrinks \(\theta_j\) a little before the usual update. The same update form applies to logistic regression with the sigmoid \(h_\theta\). With \(\lambda &gt; 0\), \(X^TX + \lambda L\) is always invertible, even when \(m \le n\).</p>
+
+  <h3>In-lecture quiz answer</h3>
+  <p>\(\lambda\) set extremely large (say \(10^{10}\)): the algorithm <b>underfits</b>. All \(\theta_1 \dots \theta_n \approx 0\), so \(h_\theta(x) \approx \theta_0\), a flat line.</p>
+
+  <div class="qs">
+    <h3>Practice</h3>
+    <details><summary>Training error is very low, test error is high. Bias or variance? Should \(\lambda\) go up or down?</summary><div>High variance (overfitting). Increase \(\lambda\).</div></details>
+    <details><summary>Why is \(\theta_0\) left out of the penalty?</summary><div>It is the intercept; shrinking it only shifts predictions and does not reduce the complexity of the curve. By convention the sum runs from \(j = 1\).</div></details>
+    <details><summary>\(\alpha = 0.01\), \(\lambda = 10\), \(m = 100\). What factor multiplies \(\theta_j\) on each step?</summary><div>\(1 - 0.01 \times 10 / 100 = 0.999\).</div></details>
+  </div>
+</section>
+
+<!-- L8 -->
+<section id="l8" class="lec">
+  <div class="lec-head"><span class="lec-num">Lecture 8</span><h2>Neural networks: representation</h2></div>
+  <p class="src">Lecture8.pptx · 34 slides · motivation, model, forward propagation, logic gates, multi-class</p>
+
+  <h3>Why neural networks</h3>
+  <p>Non-linear boundaries with logistic regression need polynomial features, and their number explodes. With \(n\) features, all quadratic terms number about \(n^2/2\). A 50 × 50 greyscale image has 2,500 pixels, so about 3 million quadratic features (7,500 inputs if RGB). Neural networks learn their own features instead.</p>
+  <p>Background: algorithms that try to mimic the brain; popular in the 1980s and early 1990s, faded in the late 1990s, then a strong resurgence. The "one learning algorithm" hypothesis: rewired auditory or somatosensory cortex learns to see, which suggests one general learning mechanism.</p>
+
+  <h3>The model</h3>
+  <ul class="tight">
+    <li>Each neuron is a logistic unit: inputs, weights (parameters) and a sigmoid activation. A bias unit \(x_0 = 1\) is added to each layer.</li>
+    <li>Layer 1 is the input layer, the last is the output layer, those between are hidden layers.</li>
+    <li>\(a^{(j)}_i\) = activation of unit \(i\) in layer \(j\). \(\Theta^{(j)}\) = weights mapping layer \(j\) to layer \(j+1\).</li>
+  </ul>
+  <div class="board">
+    <div class="row"><div class="lbl">Weight shape</div><div class="eq">If layer \(j\) has \(s_j\) units and layer \(j+1\) has \(s_{j+1}\), then \(\Theta^{(j)}\) is \(s_{j+1} \times (s_j + 1)\).</div></div>
+    <div class="row"><div class="lbl">Forward propagation</div><div class="eq">\(a^{(1)} = x,\quad z^{(2)} = \Theta^{(1)}a^{(1)},\quad a^{(2)} = g(z^{(2)})\); add \(a^{(2)}_0 = 1\)<br>\(z^{(3)} = \Theta^{(2)}a^{(2)},\quad h_\Theta(x) = a^{(3)} = g(z^{(3)})\)</div></div>
+  </div>
+  <p>The last layer is plain logistic regression, but on features \(a^{(2)}\) the network learned rather than features you chose.</p>
+
+  <h3>Logic gates with one unit (weights \(\theta_0, \theta_1, \theta_2\))</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Function</th><th>Weights</th><th>Why it works</th></tr>
+    <tr><td>\(x_1\) AND \(x_2\)</td><td class="mono">−30, 20, 20</td><td>Only (1,1) gives \(z = 10 &gt; 0\)</td></tr>
+    <tr><td>\(x_1\) OR \(x_2\)</td><td class="mono">−10, 20, 20</td><td>Any 1 gives \(z \ge 10\)</td></tr>
+    <tr><td>NOT \(x_1\)</td><td class="mono">10, −20</td><td>\(x_1 = 0\) gives 10; \(x_1 = 1\) gives −10</td></tr>
+    <tr><td>(NOT \(x_1\)) AND (NOT \(x_2\))</td><td class="mono">10, −20, −20</td><td>Only (0,0) gives \(z = 10\)</td></tr>
+  </table></div>
+  <p><b>XNOR needs a hidden layer:</b> \(a_1\) = AND, \(a_2\) = (NOT \(x_1\)) AND (NOT \(x_2\)), output = \(a_1\) OR \(a_2\). Truth table: (0,0) → 1, (0,1) → 0, (1,0) → 0, (1,1) → 1. Deeper layers build more complex functions from simpler ones.</p>
+
+  <h3>Multi-class</h3>
+  <p>One output unit per class (one-vs-all). For pedestrian, car, motorcycle, truck, the target \(y^{(i)}\) is one of \([1,0,0,0]^T, [0,1,0,0]^T, [0,0,1,0]^T, [0,0,0,1]^T\), and we want \(h_\Theta(x) \approx y\).</p>
+
+  <div class="qs">
+    <h3>Practice</h3>
+    <details><summary>Inputs: 10 features. Hidden layer: 5 units. Output: 1 unit. Shapes of \(\Theta^{(1)}\) and \(\Theta^{(2)}\)?</summary><div>\(\Theta^{(1)}\): 5 × 11. \(\Theta^{(2)}\): 1 × 6.</div></details>
+    <details><summary>With weights −10, 20, 20, compute the output for \(x = (0, 0)\).</summary><div>\(g(-10) \approx 0.00005 \approx 0\). This is the OR gate.</div></details>
+    <details><summary>Why can a single logistic unit not compute XOR?</summary><div>XOR is not linearly separable, and one unit draws a single straight boundary. A hidden layer is needed.</div></details>
+  </div>
+</section>
+
+<!-- Formula sheet -->
+<section id="sheet" class="lec">
+  <div class="lec-head"><h2>One-page formula sheet</h2></div>
+  <div class="board">
+    <div class="row"><div class="lbl">Linear hypothesis</div><div class="eq">\(h_\theta(x) = \theta^T x\)</div></div>
+    <div class="row"><div class="lbl">Logistic hypothesis</div><div class="eq">\(h_\theta(x) = \dfrac{1}{1 + e^{-\theta^T x}}\)</div></div>
+    <div class="row"><div class="lbl">Linear cost</div><div class="eq">\(\dfrac{1}{2m}\sum (h - y)^2 \;+\; \dfrac{\lambda}{2m}\sum_{j \ge 1}\theta_j^2\)</div></div>
+    <div class="row"><div class="lbl">Logistic cost</div><div class="eq">\(-\dfrac{1}{m}\sum\big[y\log h + (1-y)\log(1-h)\big] \;+\; \dfrac{\lambda}{2m}\sum_{j \ge 1}\theta_j^2\)</div></div>
+    <div class="row"><div class="lbl">Gradient (both)</div><div class="eq">\(\dfrac{\partial J}{\partial\theta_j} = \dfrac{1}{m}\sum (h - y)\,x_j \;+\; \dfrac{\lambda}{m}\theta_j\ \ (j \ge 1)\)</div></div>
+    <div class="row"><div class="lbl">Vectorised GD</div><div class="eq">\(\theta := \theta - \dfrac{\alpha}{m}X^T(X\theta - y)\) (linear regression)</div></div>
+    <div class="row"><div class="lbl">Normal equation</div><div class="eq">\(\theta = (X^TX + \lambda L)^{-1}X^Ty\) (\(\lambda = 0\) without regularisation)</div></div>
+    <div class="row"><div class="lbl">Mean normalisation</div><div class="eq">\(x_j \leftarrow (x_j - \mu_j)/s_j\)</div></div>
+    <div class="row"><div class="lbl">NN weights</div><div class="eq">\(\Theta^{(j)} \in \mathbb{R}^{s_{j+1} \times (s_j + 1)}\)</div></div>
+    <div class="row"><div class="lbl">Forward prop</div><div class="eq">\(a^{(j+1)} = g(\Theta^{(j)}a^{(j)})\), adding bias \(a_0 = 1\) each layer</div></div>
+  </div>
+</section>
+
+<!-- Issues -->
+<section id="issues" class="lec">
+  <div class="lec-head"><h2>Slide corrections and updates</h2></div>
+  <p>Found while reviewing every slide. None changes the maths, but they are worth knowing before the exam.</p>
+  <div class="fix"><b>Typo.</b> Lecture 7, slide 10 (quiz option): "Algortihm fails to eliminate overfitting" should read "Algorithm".</div>
+  <div class="fix"><b>Wrong word.</b> Logistic Regression, slide 28: "Medical diagrams: Not ill, Cold, Flu" should read "Medical diagnosis".</div>
+  <div class="fix"><b>Missing answers.</b> Lecture 1 quizzes (pages 16–18, 25, 38) and the Lecture 7 \(\lambda\) quiz show no answer on the slide. Answers are given above under each lecture.</div>
+  <div class="fix"><b>Numbering.</b> The folder jumps from Lecture 4 to Lecture 7. The Logistic Regression deck is unnumbered; this guide treats it as Lectures 5–6. Check with the course outline that nothing else from weeks 5–6 is in scope.</div>
+  <div class="fix"><b>Out-of-date tooling.</b> Code on the slides is Octave (<code>pinv</code>, <code>fminunc</code>, <code>optimset</code>). The current equivalents are NumPy (<code>np.linalg.pinv</code>, or better <code>np.linalg.lstsq</code>) and SciPy (<code>scipy.optimize.minimize</code>), or scikit-learn's <code>LinearRegression</code> and <code>LogisticRegression</code>. Note that scikit-learn's <code>LogisticRegression</code> is regularised by default, with <code>C = 1/λ</code>.</div>
+  <div class="fix"><b>Dated claims.</b> Lecture 8 calls neural networks a "recent resurgence", and Lecture 4 frames the normal-equation cut-off at about \(n = 10{,}000\). Both reflect the 2011 course. Deep learning has been mainstream since about 2012, and modern hardware moves the normal-equation limit, though gradient methods remain the default at scale.</div>
+  <div class="fix"><b>Indexing.</b> Lecture 3, slide 4 says the course uses 1-indexed vectors. True for the maths and Octave, but Python is 0-indexed, so \(\theta_0\) is <code>theta[0]</code> and \(\theta_1\) is <code>theta[1]</code> in NumPy, whereas in Octave they are <code>theta(1)</code> and <code>theta(2)</code>. Slide 25 of Logistic Regression relies on the Octave convention.</div>
+</section>
+
+<script>
+(function () {
+  var opened = [];
+  window.addEventListener('beforeprint', function () {
+    opened = [];
+    document.querySelectorAll('details:not([open])').forEach(function (d) { d.open = true; opened.push(d); });
+  });
+  window.addEventListener('afterprint', function () {
+    opened.forEach(function (d) { d.open = false; });
+    opened = [];
+  });
+})();
+</script>
+<footer>Reviewed from Lecture1.pdf, Lecture2–4.pptx, Logistic Regression.pptx, Lecture7.pptx and Lecture8.pptx in the Mid Slides folder, 8 November 2026. Slide content is based on Andrew Ng's Machine Learning course.</footer>
+</main>
+</div>
