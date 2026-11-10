@@ -83,7 +83,18 @@ details pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:
 .prio ul{margin:0;padding-left:18px;font-size:14.5px}
 footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.sitenav{position:sticky;top:0;z-index:30;display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top,0px));background:var(--surface);border-bottom:1px solid var(--line)}
+.sitenav a{font:500 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:999px}
+.sitenav a:hover,.sitenav a:focus-visible{background:var(--accent-soft);color:var(--ink);outline:none}
+.sitenav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+@media print{.sitenav{display:none!important}}
 </style>
+
+<nav class="sitenav" aria-label="Course guides">
+  <a href="index.html">CS-643 Machine Learning</a>
+  <a href="cs_610_advanced_data_analytics.html" aria-current="page">CS-610 Advanced Data Analytics</a>
+  <a href="cs-654_advance_tec_ds.html">CS-654 Advanced Techniques in DS</a>
+</nav>
 
 <div class="wrap">
 <nav class="toc" aria-label="Topics">
