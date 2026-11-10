@@ -1,0 +1,663 @@
+<title>CS-654 Midterm Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column with a sticky topic index on wide screens; formula and worked-example blocks set apart by role */
+:root{
+  --bg:#f6f8fa; --surface:#ffffff; --ink:#18222d; --muted:#556271; --line:#d9e0e7;
+  --accent:#1d5f86; --accent-soft:#e3eef5; --warn:#8a5a00; --warn-soft:#fbf1dc; --ok:#25643f; --ok-soft:#e2f2e8;
+  --display:"Newsreader",Georgia,"Times New Roman",serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f151b; --surface:#16202a; --ink:#e3e9ef; --muted:#9aa8b6; --line:#2a3846;
+  --accent:#7cb8dc; --accent-soft:#1a3242; --warn:#e8bd6a; --warn-soft:#3a2e15; --ok:#7fcf9c; --ok-soft:#173326; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --surface:#16202a; --ink:#e3e9ef; --muted:#9aa8b6; --line:#2a3846;
+  --accent:#7cb8dc; --accent-soft:#1a3242; --warn:#e8bd6a; --warn-soft:#3a2e15; --ok:#7fcf9c; --ok-soft:#173326; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:230px minmax(0,1fr);gap:48px;padding-block:40px 80px}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr);gap:24px;padding-block:24px 56px}nav.toc{position:static!important;max-height:none!important}}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;max-height:calc(100vh - 48px);overflow:auto;font-size:14px}
+nav.toc .lbl{font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:t}
+nav.toc a{display:block;padding:6px 10px;border-radius:6px;color:var(--ink);text-decoration:none;counter-increment:t}
+nav.toc a::before{content:counter(t) ". ";color:var(--muted);font-family:var(--mono);font-size:12px}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--accent-soft);outline:none}
+main{min-width:0}
+header.top{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:36px}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:650 clamp(34px,5vw,52px)/1.08 var(--display);margin:12px 0 14px;text-wrap:balance}
+.lede{color:var(--muted);max-width:66ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font:500 12px/1 var(--mono);padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted)}
+section{padding-top:28px;margin-top:28px;border-top:1px solid var(--line);scroll-margin-top:16px}
+section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+h2{font:650 30px/1.15 var(--display);margin:0 0 6px;text-wrap:balance}
+h2 .src{display:block;font:500 12px/1.4 var(--mono);color:var(--muted);margin-top:8px;letter-spacing:0}
+h3{font:600 18px/1.3 var(--body);margin:30px 0 10px}
+h4{font:600 15px/1.3 var(--body);margin:18px 0 6px;color:var(--accent)}
+p,li{max-width:72ch}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+strong{font-weight:600}
+code,.m{font-family:var(--mono);font-size:.92em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:14px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.card h4{margin-top:0}
+.card p{margin:6px 0}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0;font-size:14px}
+.flow span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 11px;font-weight:500}
+.flow i{color:var(--muted);font-style:normal}
+.tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-weight:600;background:var(--accent-soft);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.formula{font-family:var(--mono);background:var(--accent-soft);border-radius:8px;padding:14px 16px;margin:12px 0;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7}
+.example{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:4px 18px 14px;margin:16px 0}
+.example .tag,.note .tag,.trap .tag{font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;display:block;margin:14px 0 6px}
+.example .tag{color:var(--ok)}
+.example pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;margin:8px 0;overflow-x:auto;white-space:pre}
+.trap{background:var(--warn-soft);border-radius:10px;padding:2px 18px 12px;margin:16px 0}
+.trap .tag{color:var(--warn)}
+.note{background:var(--ok-soft);border-radius:10px;padding:2px 18px 12px;margin:16px 0}
+.note .tag{color:var(--ok)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0 16px}
+details[open]{padding-bottom:12px}
+summary{cursor:pointer;padding:12px 0;font-weight:500;list-style-position:outside}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+details .ans{border-top:1px dashed var(--line);padding-top:10px}
+details pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto;white-space:pre;margin:6px 0}
+.check{list-style:none;padding:0;display:grid;gap:8px}
+.check li{display:flex;gap:10px;align-items:flex-start;max-width:none}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.prio{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.prio div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.prio b{display:block;font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.prio .hi b{color:var(--accent)} .prio .md b{color:var(--ok)} .prio .lo b{color:var(--muted)}
+.prio ul{margin:0;padding-left:18px;font-size:14.5px}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Topics">
+  <div class="lbl">Topics</div>
+  <ol>
+    <li><a href="#plan">Exam game plan</a></li>
+    <li><a href="#intro">Intro to Data Science</a></li>
+    <li><a href="#life">Data Science Lifecycle</a></li>
+    <li><a href="#ethics">Ethics &amp; Responsible AI</a></li>
+    <li><a href="#collect">Data Collection</a></li>
+    <li><a href="#quality">Data Quality &amp; Cleaning</a></li>
+    <li><a href="#missing">Missing Values</a></li>
+    <li><a href="#pandas">Pandas Toolkit</a></li>
+    <li><a href="#eda">EDA: Patterns, Trends, Correlation</a></li>
+    <li><a href="#case">Case Study Answers</a></li>
+    <li><a href="#practice">Practice Questions</a></li>
+    <li><a href="#last">Night-before Checklist</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <div class="eyebrow">CS-654 Advanced Techniques in Data Science · MS Data Science, UET</div>
+  <h1>Midterm Preparation Guide</h1>
+  <p class="lede">Built from all six course files: Lectures 1 to 3, the Week 5 Data Collection &amp; Cleaning PDF, the Week 7 EDA deck and the Student Performance case study. Definitions, comparisons, worked numericals and model answers. Practice answers are hidden until you click.</p>
+  <div class="meta">
+    <span class="chip">Week 5 Collection &amp; Cleaning · 58 pp</span><span class="chip">Lec 2 Lifecycle · 25</span><span class="chip">Case study · 23 pp</span>
+    <span class="chip">Lec 1 Intro · 19</span><span class="chip">Lec 3 Ethics · 16</span><span class="chip">Week 7 EDA · 16</span>
+  </div>
+</header>
+
+<!-- 1 -->
+<section id="plan">
+  <h2>Exam game plan</h2>
+  <p>Week 5 is by far the largest file and the only one with numericals, and the case study is built on it. Expect most marks there. Your instructor's own hints take precedence.</p>
+  <div class="prio">
+    <div class="hi"><b>Highest yield</b><ul>
+      <li>MCAR vs MAR vs MNAR with examples</li>
+      <li>Imputation choice: mean, median, mode, group-wise, indicator</li>
+      <li>IQR fences numerical; outlier decision</li>
+      <li>ffill / bfill / interpolate numerical</li>
+      <li>Seven data-quality dimensions</li>
+      <li>Data leakage: split before imputing</li>
+    </ul></div>
+    <div class="md"><b>Likely short questions</b><ul>
+      <li>Eight lifecycle stages; SMART problem statement</li>
+      <li>Primary vs secondary; sampling methods; bias types</li>
+      <li>Cleaning workflow order and why</li>
+      <li>Correlation r ranges; correlation ≠ causation</li>
+      <li>Five Responsible AI principles; GDPR</li>
+    </ul></div>
+    <div class="lo"><b>Lower weight</b><ul>
+      <li>Industry applications list</li>
+      <li>Job roles and skills</li>
+      <li>HIPAA and PDPA details</li>
+      <li>Advanced imputation (KNN, iterative)</li>
+    </ul></div>
+  </div>
+  <div class="trap"><span class="tag">Gaps in the folder</span>Week 6 (Data Visualisation) is referenced in the Week 5 PDF but its slides are not in this folder. Lecture 1's contents list "data science vs data analytics vs AI", but that slide is blank, so a standard answer is given below. Lecture 3's contents list a conclusion slide that is not in the file.</div>
+</section>
+
+<!-- 2 -->
+<section id="intro">
+  <h2>Introduction to Data Science<span class="src">Lec 1 · 19 slides</span></h2>
+  <p><strong>Definition:</strong> the study of data to derive useful insight for decision making. It combines <strong>mathematics and statistics</strong> (analysis), <strong>computer science</strong> (computation and algorithms) and <strong>domain expertise</strong> (problem understanding). It predicts future outcomes, not only describes the past. Examples: Netflix recommendations, hospital risk prediction, bank fraud detection.</p>
+
+  <h3>Why data science</h3>
+  <div class="grid2">
+    <div class="card"><h4>Why it exists</h4><p>Explosion of data (social media, sensors, IoT) · evidence-based decisions instead of intuition · innovation (self-driving cars, personalised medicine) · competitive advantage.</p></div>
+    <div class="card"><h4>Why it is important</h4><p>Better decisions · efficiency · personalised experiences · predicting the future · drives innovation · benefits society (health, education, transport).</p></div>
+  </div>
+
+  <h3>How it works (nine steps across slides 5–6)</h3>
+  <div class="flow"><span>Collection</span><i>→</i><span>Cleaning</span><i>→</i><span>Analysis</span><i>→</i><span>Visualisation</span><i>→</i><span>Decision-making</span><i>→</i><span>Modelling</span><i>→</i><span>Evaluation</span><i>→</i><span>Deployment</span><i>→</i><span>Monitoring &amp; feedback</span></div>
+
+  <h3>Data science vs data analytics vs AI</h3>
+  <div class="tbl"><table>
+    <tr><th></th><th>Data science</th><th>Data analytics</th><th>AI</th></tr>
+    <tr><td>Goal</td><td>Extract insight and build predictive models end to end</td><td>Answer specific questions from existing data</td><td>Make machines perform tasks that need intelligence</td></tr>
+    <tr><td>Focus</td><td>Past, present and future</td><td>Mainly past and present (reports, dashboards)</td><td>Autonomous decisions and actions</td></tr>
+    <tr><td>Tools</td><td>Python, R, ML, statistics, big data</td><td>SQL, Excel, Tableau, Power BI</td><td>ML, deep learning, NLP, vision</td></tr>
+    <tr><td>Relation</td><td colspan="3">Analytics is a subset of data science; data science uses AI/ML as a tool; AI also extends beyond data science (robotics, reasoning).</td></tr>
+  </table></div>
+  <p class="m" style="color:var(--muted);font-size:13px">Standard answer: the slide for this topic is blank in the deck.</p>
+
+  <h3>Applications by industry</h3>
+  <div class="tbl"><table>
+    <tr><th>Sector</th><th>Use</th></tr>
+    <tr><td>Healthcare</td><td>Early disease detection, personalised treatment, hospital operations</td></tr>
+    <tr><td>Finance</td><td>Fraud detection, risk management, tailored products</td></tr>
+    <tr><td>Retail / e-commerce</td><td>Targeted marketing, inventory, recommendations, demand forecasting</td></tr>
+    <tr><td>Transport</td><td>Route optimisation, fleet and traffic management</td></tr>
+    <tr><td>Manufacturing</td><td>Predictive maintenance, supply chain</td></tr>
+    <tr><td>Energy</td><td>Demand forecasting, renewable integration</td></tr>
+    <tr><td>Agriculture</td><td>Precision farming, crop health</td></tr>
+  </table></div>
+
+  <h3>Skills and roles</h3>
+  <p><strong>Skills:</strong> programming (Python, R, SQL) · statistics and linear algebra · machine learning · visualisation (Tableau, Power BI, Matplotlib) · data wrangling · big data tools (Hadoop, Spark, cloud) · critical thinking · communication.</p>
+  <div class="tbl"><table>
+    <tr><th>Role</th><th>Main job</th></tr>
+    <tr><td>Data scientist</td><td>Analyse large datasets, build ML models, give insights</td></tr>
+    <tr><td>Data analyst</td><td>Collect, clean, analyse; reports and dashboards (SQL, Tableau)</td></tr>
+    <tr><td>ML engineer</td><td>Build and deploy models at scale (TensorFlow, PyTorch, cloud)</td></tr>
+    <tr><td>Data engineer</td><td>Build pipelines to collect, transform and store data</td></tr>
+    <tr><td>BI analyst</td><td>Turn business requirements into BI reports and dashboards</td></tr>
+    <tr><td>Data architect</td><td>Design databases, lakes, warehouses, schemas, governance</td></tr>
+  </table></div>
+</section>
+
+<!-- 3 -->
+<section id="life">
+  <h2>The Data Science Lifecycle<span class="src">Lec 2 · 25 slides · running example: e-commerce churn</span></h2>
+  <div class="flow"><span>1 Problem formulation</span><i>→</i><span>2 Collection</span><i>→</i><span>3 Cleaning</span><i>→</i><span>4 EDA</span><i>→</i><span>5 Modelling</span><i>→</i><span>6 Deployment</span><i>→</i><span>7 Monitoring</span><i>→</i><span>8 Feedback loop</span><i>↺</i></div>
+  <p>The cycle is <strong>circular and iterative</strong>, not linear: a drop in accuracy (monitoring) can reveal changed behaviour (feedback) and send you back to problem formulation or collection.</p>
+
+  <div class="tbl"><table>
+    <tr><th>Stage</th><th>Key idea</th><th>Churn example</th></tr>
+    <tr><td>1 Problem formulation</td><td>Most critical stage. Statement must be <strong>SMART</strong>. Output: actionable problem + success metrics</td><td>Cut churn 10% in 6 months; deliver in 3 months</td></tr>
+    <tr><td>2 Collection</td><td>Sources: internal DBs (CRM), external/public data, APIs, web scraping. Mind privacy and GDPR</td><td>Demographics, purchase history (RFM), web interactions, support contacts</td></tr>
+    <tr><td>3 Cleaning</td><td>Up to <strong>80%</strong> of effort. Missing values, formats, types, outliers, duplicates</td><td>10% missing age → median; two date formats; "−$500"</td></tr>
+    <tr><td>4 EDA</td><td>Summaries, visualisation, correlation. Output: insights and hypotheses</td><td>Low purchase frequency and many support tickets → more churn</td></tr>
+    <tr><td>5 Modelling</td><td>Feature engineering, train/test split, algorithm selection, training and evaluation</td><td>Random Forest, 80/20 split, 85% accuracy, 75% precision</td></tr>
+    <tr><td>6 Deployment</td><td><strong>Batch</strong> (scheduled scoring) or <strong>API endpoint</strong> (real time). Challenges: integration, scalability, latency, infrastructure</td><td>REST API scores user at login; high risk → 10% discount</td></tr>
+    <tr><td>7 Monitoring</td><td>Models degrade through <strong>concept / data drift</strong>. Watch performance, input drift, prediction drift</td><td>Alert if accuracy &lt; 80% or new-customer age shifts</td></tr>
+    <tr><td>8 Feedback loop</td><td>Outcomes of actions feed back into the data; model retrained periodically</td><td>Did customer A stay after the offer? Add to data, retrain</td></tr>
+  </table></div>
+
+  <h3>SMART</h3>
+  <p><strong>S</strong>pecific · <strong>M</strong>easurable · <strong>A</strong>chievable · <strong>R</strong>elevant · <strong>T</strong>ime-bound. Key questions: business objective, desired outcome, success measure, constraints (time, resources, data).</p>
+
+  <h3>Data types by structure</h3>
+  <p><strong>Structured:</strong> rows and columns (SQL, transactions). <strong>Semi-structured:</strong> some organisation, not relational (JSON, XML). <strong>Unstructured:</strong> no predefined format (reviews, emails, images).</p>
+
+  <h3>The human element</h3>
+  <p>Business stakeholders (problem and metrics) · data engineers (pipelines) · data scientists (models) · IT/DevOps (deployment and monitoring). Ethics, fairness and bias must be considered at every stage.</p>
+  <div class="note"><span class="tag">Exam tip</span>Three drift terms are easy to confuse. <strong>Concept drift:</strong> relationship between inputs and target changes. <strong>Input (data) drift:</strong> distribution of incoming features changes. <strong>Prediction drift:</strong> distribution of model outputs changes.</div>
+</section>
+
+<!-- 4 -->
+<section id="ethics">
+  <h2>Ethics &amp; Responsible AI<span class="src">Lec 3 · 16 slides</span></h2>
+  <h3>Why ethics matter</h3>
+  <p><strong>Discrimination risks</strong> (biased algorithms disadvantage groups) · <strong>privacy breaches</strong> (identity theft, fraud) · <strong>loss of trust</strong> (resistance to beneficial AI).</p>
+
+  <h3>Three sources of bias</h3>
+  <div class="grid2">
+    <div class="card"><h4>Skewed training data</h4><p>Historical data reflects past discrimination; e.g. biased hiring history produces a biased hiring model.</p></div>
+    <div class="card"><h4>Flawed algorithm design</h4><p>Objectives, feature selection, architecture and metrics can favour some groups.</p></div>
+    <div class="card"><h4>Human prejudices</h4><p>Developers' unconscious biases shape problem framing and evaluation.</p></div>
+  </div>
+  <div class="example"><span class="tag">Case study: facial recognition (Joy Buolamwini, MIT)</span><p>Error up to <strong>34.7%</strong> for darker-skinned women vs <strong>0.8%</strong> for lighter-skinned men. Cause: training sets mostly lighter-skinned faces plus inadequate testing across groups. Harm: false identification, wrongful arrests, exclusion.</p></div>
+
+  <h3>Accountability and transparency</h3>
+  <p><strong>Opacity problem:</strong> deep models are hard to interpret, so decisions cannot be audited or challenged. <strong>High-stakes decisions</strong> (justice, healthcare, finance) make this a due-process issue.</p>
+
+  <h3>Privacy laws</h3>
+  <div class="tbl"><table>
+    <tr><th>Law</th><th>Scope</th><th>Key points</th></tr>
+    <tr><td>GDPR (EU, 2018)</td><td>Most comprehensive globally</td><td>Explicit consent · right to access, correct, delete ("right to be forgotten") · privacy by design · impact assessments for high-risk processing · fine up to <strong>4% of global annual revenue or €20m, whichever is higher</strong></td></tr>
+    <tr><td>HIPAA (US)</td><td>Protected health information (PHI)</td><td>Strict PHI access controls · business associate agreements · electronic PHI safeguards · patient access rights</td></tr>
+    <tr><td>PDPA (Singapore)</td><td>Private-sector personal data</td><td>Consent · purpose limitation · breach notification · access and correction rights</td></tr>
+  </table></div>
+
+  <h3>Five Responsible AI principles</h3>
+  <div class="tbl"><table>
+    <tr><th>Principle</th><th>Meaning</th></tr>
+    <tr><td>Fairness</td><td>Treat all individuals and groups equitably</td></tr>
+    <tr><td>Transparency</td><td>Decisions understandable and auditable</td></tr>
+    <tr><td>Accountability</td><td>Clear responsibility and mechanisms to fix errors and harm</td></tr>
+    <tr><td>Privacy</td><td>Personal data protected across the lifecycle; individuals keep control</td></tr>
+    <tr><td>Security</td><td>Robust against attacks, manipulation and failures</td></tr>
+  </table></div>
+
+  <h3>Real-world dilemmas</h3>
+  <ul>
+    <li><strong>Human in the loop:</strong> AI diagnosis and autonomous vehicles; who is morally responsible? Ambulance allocation could under-serve neighbourhoods if data is biased.</li>
+    <li><strong>Privacy vs performance:</strong> more personal data improves models (COVID contact tracing, recommenders). Mitigations: differential privacy, federated learning.</li>
+    <li><strong>Engagement vs well-being:</strong> social media algorithms amplify divisive content; business metrics vs societal good.</li>
+  </ul>
+
+  <h3>Tools and strategies</h3>
+  <p><strong>Ethical sourcing:</strong> representative data, consent, data lineage, bias audits, governance policies (retention, access control). <strong>Explainable AI (XAI):</strong> interpretability methods and attention; <strong>surrogate models</strong> (simple model approximating a black box) balance performance and explainability.</p>
+</section>
+
+<!-- 5 -->
+<section id="collect">
+  <h2>Data Collection<span class="src">Week 5 PDF · Part 1</span></h2>
+  <p><strong>Definition:</strong> the systematic process of gathering observations, measurements or records to answer a defined question. Every plan answers six questions: <strong>What</strong> (variables) · <strong>Why</strong> (question served) · <strong>Who/what</strong> (source) · <strong>How</strong> (method) · <strong>When</strong> (period, frequency) · <strong>Protected how</strong> (quality, privacy, storage).</p>
+  <p>Workflow: define question → list variables → choose source, method, sample → pilot and collect → store raw copy securely → write the <strong>data dictionary</strong> (name, meaning, type, unit, allowed range, source, how missing is coded).</p>
+
+  <h3>Primary vs secondary</h3>
+  <div class="tbl"><table>
+    <tr><th>Factor</th><th>Primary</th><th>Secondary</th></tr>
+    <tr><td>Purpose</td><td>Collected for this question</td><td>Collected for another purpose</td></tr>
+    <tr><td>Examples</td><td>Survey, sensors, experiment, interviews</td><td>Government stats, Kaggle, company records, weather archives</td></tr>
+    <tr><td>Cost / time</td><td>Higher</td><td>Lower</td></tr>
+    <tr><td>Control</td><td>High</td><td>Limited, inherit their choices</td></tr>
+    <tr><td>Main risk</td><td>Response and design bias</td><td>Relevance, provenance, unknown quality</td></tr>
+    <tr><td>Check</td><td>Pilot the instrument</td><td>Read the data dictionary and source</td></tr>
+  </table></div>
+
+  <h3>Methods and their quality risks</h3>
+  <div class="tbl"><table>
+    <tr><th>Method</th><th>Typical risk</th></tr>
+    <tr><td>Surveys</td><td>Leading questions, non-response, typos</td></tr>
+    <tr><td>Databases / systems</td><td>Duplicates after imports, stale records</td></tr>
+    <tr><td>Sensors / IoT</td><td>Drift, gaps, spikes</td></tr>
+    <tr><td>APIs</td><td>Rate limits, schema changes, nesting</td></tr>
+    <tr><td>Web scraping</td><td>Messy HTML, terms of use, layout changes</td></tr>
+    <tr><td>Experiments</td><td>Small samples, poor randomisation</td></tr>
+    <tr><td>Observation</td><td>Observer bias, inconsistent coding</td></tr>
+  </table></div>
+
+  <h3>Sampling (population 5,000 → sample 200)</h3>
+  <div class="grid2">
+    <div class="card"><h4>Simple random</h4><p>Every unit equal chance; pick 200 IDs at random.</p></div>
+    <div class="card"><h4>Stratified</h4><p>Split by group (department), sample each in proportion.</p></div>
+    <div class="card"><h4>Systematic</h4><p>Random start, then every k-th (k = 5000/200 = 25).</p></div>
+    <div class="card"><h4>Convenience (risky)</h4><p>Whoever is easy to reach, e.g. one classroom.</p></div>
+  </div>
+
+  <h3>Six bias types (cleaning cannot fix these)</h3>
+  <div class="tbl"><table>
+    <tr><th>Bias</th><th>Example</th></tr>
+    <tr><td>Selection</td><td>Surveying only students who attend every class</td></tr>
+    <tr><td>Non-response</td><td>Students who skip the survey differ from those who answer</td></tr>
+    <tr><td>Measurement</td><td>Sensor always reads 2 °C high</td></tr>
+    <tr><td>Time</td><td>Sales collected only during a holiday sale</td></tr>
+    <tr><td>Survivorship</td><td>Studying only students who reached final year</td></tr>
+    <tr><td>Label</td><td>Incomplete or wrong historical fraud labels</td></tr>
+  </table></div>
+  <div class="trap"><span class="tag">Classic question</span>Can a million-row dataset be biased? Yes. Size reduces random error, not systematic error.</div>
+
+  <h3>Ethics at collection</h3>
+  <p>Consent · minimisation · purpose limitation · secure storage · anonymisation (drop names, CNICs, phones) · extra care for sensitive data. Dropping identifier columns is itself a cleaning step.</p>
+</section>
+
+<!-- 6 -->
+<section id="quality">
+  <h2>Data Quality &amp; Cleaning Techniques<span class="src">Week 5 PDF · Parts 2–3</span></h2>
+  <p><strong>Data cleaning:</strong> identifying and addressing data problems so the dataset is fit for its intended analysis. <strong>Golden rule:</strong> do not change every unusual value; every change needs a documented, defensible reason.</p>
+  <div class="example"><span class="tag">Why it matters: one typo</span>
+<pre>Marks: 70, 80, 90, Missing, 800
+Kept 800:        mean = (70+80+90+800)/4 = 260   median 85
+800 → 80 typo:   mean = (70+80+90+80)/4  = 80    median 80
+The missing value is silently ignored by both.</pre></div>
+
+  <h3>Seven dimensions of data quality</h3>
+  <div class="tbl"><table>
+    <tr><th>Dimension</th><th>Question</th><th>Failure</th><th>Check</th></tr>
+    <tr><td>Accuracy</td><td>Matches reality?</td><td>58 entered for 85</td><td>Verify against source</td></tr>
+    <tr><td>Completeness</td><td>Required data present?</td><td>Attendance blank</td><td><code>isnull().sum()</code></td></tr>
+    <tr><td>Consistency</td><td>Records agree?</td><td>Two birth dates for one ID</td><td>Cross-table compare</td></tr>
+    <tr><td>Validity</td><td>Obeys rules?</td><td>Attendance 150%</td><td>Range rules</td></tr>
+    <tr><td>Uniqueness</td><td>Each entity once?</td><td>Order imported twice</td><td><code>duplicated()</code></td></tr>
+    <tr><td>Timeliness</td><td>Current enough?</td><td>Last year's inventory</td><td>Timestamps</td></tr>
+    <tr><td>Integrity</td><td>Links hold?</td><td>Order for unknown customer</td><td>Key lookups</td></tr>
+  </table></div>
+  <div class="trap"><span class="tag">Accuracy vs validity</span>A valid value obeys the rules (85 is within 0–100) but can still be inaccurate (the true mark was 58). A complete dataset can be inaccurate.</div>
+
+  <h3>Ten-step cleaning workflow (order matters)</h3>
+  <div class="flow"><span>1 Back up raw</span><i>→</i><span>2 Inspect &amp; profile</span><i>→</i><span>3 Remove duplicates</span><i>→</i><span>4 Fix types &amp; formats</span><i>→</i><span>5 Standardise categories</span><i>→</i><span>6 Business rules</span><i>→</i><span>7 Investigate outliers</span><i>→</i><span>8 Missing values</span><i>→</i><span>9 Validate</span><i>→</i><span>10 Document</span></div>
+  <p><strong>Why:</strong> duplicates go early so they do not distort the statistics used for imputation. Missing values go late because type conversion, invalid-value checks and deduplication create or reveal new missing values.</p>
+
+  <h3>Technique 1 · Duplicates</h3>
+  <div class="tbl"><table>
+    <tr><th>Kind</th><th>Example</th><th>Treatment</th></tr>
+    <tr><td>Exact</td><td>Every column identical</td><td>Drop one</td></tr>
+    <tr><td>Key</td><td>Same ID, different values (S5: 78 vs 87)</td><td>Verify source, keep the correct one</td></tr>
+    <tr><td>Near</td><td>"Muhammad Ali" vs "M. Ali"</td><td>Standardise first, then re-check</td></tr>
+  </table></div>
+  <p>Two orders by one customer for the same amount may be two real purchases: never delete just because some fields match. <code>keep="first" | "last" | False</code> (False flags all copies).</p>
+
+  <h3>Technique 2 · Invalid values</h3>
+  <p>Present and correctly typed but break a business rule: attendance 125%, marks 110, age −5, delivery before order, "Pass" with marks 12. Rules come from the data dictionary and domain experts. <strong>Flag, don't delete.</strong> Then decide: correct from source · set to missing · flag and keep · exclude with a written reason.</p>
+
+  <h3>Technique 3 · Standardisation</h3>
+  <p>"Lahore", "lahore", "LAHORE", " Lahore " → <code>.str.strip().str.title()</code>. Codes to labels with a documented mapping. Run <code>value_counts()</code> before and after; <code>map()</code> turns unmapped labels into NaN.</p>
+
+  <h3>Technique 4 · Types and formats</h3>
+  <p>"1,500" as text cannot be averaged; sorted text gives "100" &lt; "25". Remove separators, then <code>pd.to_numeric(errors="coerce")</code>, <code>pd.to_datetime(format="mixed", dayfirst=True, errors="coerce")</code>. <strong>Coerce creates NaN/NaT</strong>, so inspect what failed.</p>
+
+  <h3>Technique 5 · Outliers (IQR rule)</h3>
+  <div class="formula">IQR = Q3 − Q1
+Lower fence = Q1 − 1.5 × IQR      Upper fence = Q3 + 1.5 × IQR
+Z-score alternative: flag |z| &gt; 3, z = (x − mean) / SD   (weak on small samples)</div>
+  <div class="example"><span class="tag">Worked example (slides)</span>
+<pre>Data: 40, 41, 42, 43, 44, 45, 180   (n = 7)
+Q1 = 41.5   Q3 = 44.5   IQR = 3
+Lower = 41.5 − 4.5 = 37     Upper = 44.5 + 4.5 = 49
+180 &gt; 49 → potential outlier</pre></div>
+  <div class="tbl"><table>
+    <tr><th>Finding</th><th>Example</th><th>Action</th></tr>
+    <tr><td>Proven error</td><td>800 for 80; grams vs kg</td><td>Correct; if impossible, set to missing</td></tr>
+    <tr><td>Genuine rare event</td><td>CEO salary, Eid sale spike, fraud</td><td>Keep; use robust stats (median, IQR)</td></tr>
+    <tr><td>Cannot tell</td><td>No source, no expert</td><td>Flag; report results with and without</td></tr>
+  </table></div>
+  <p><strong>Capping (winsorising):</strong> replace values beyond a fence with the fence value, <code>s.clip(low, high)</code>. In fraud detection the outliers are the signal.</p>
+</section>
+
+<!-- 7 -->
+<section id="missing">
+  <h2>Missing Values<span class="src">Week 5 PDF · Parts 4–5</span></h2>
+  <p><strong>Detected automatically:</strong> empty cell, NaN, None, NaT, pd.NA. <strong>Hidden:</strong> "N/A", "unknown", "?", "-", "", sentinels −999, 0, 99. A hidden −999 is worse than NaN because it silently enters the mean.</p>
+  <div class="trap"><span class="tag">Missing ≠ zero</span>Attendance 0 means attended no classes. Attendance missing means we do not know.</div>
+
+  <h3>Causes</h3>
+  <p>Human error · technical failure · not applicable (fill with a label like "N/A") · non-response · data integration · data loss.</p>
+
+  <h3>MCAR, MAR, MNAR</h3>
+  <div class="tbl"><table>
+    <tr><th></th><th>Meaning</th><th>Example</th><th>Treatment</th></tr>
+    <tr><td><strong>MCAR</strong> completely at random</td><td>Unrelated to any data</td><td>Random disk error erases marks</td><td>Deletion unbiased (loses data); simple imputation fine</td></tr>
+    <tr><td><strong>MAR</strong> at random</td><td>Depends on other <em>observed</em> variables</td><td>Attendance missing more for one department (department recorded)</td><td>Group-wise median, KNN</td></tr>
+    <tr><td><strong>MNAR</strong> not at random</td><td>Depends on the missing value itself</td><td>Weak students don't submit marks; rich people hide income</td><td>No simple fix: domain knowledge, indicators, sensitivity analysis</td></tr>
+  </table></div>
+  <p>MCAR: P(missing | data) = P(missing). You usually cannot prove the mechanism from the data alone. MAR check: <code>df.groupby("department")["att_missing"].mean()</code>; a big difference between groups suggests MAR.</p>
+
+  <h3>How missing values distort statistics</h3>
+  <div class="example"><span class="tag">Two slide examples</span>
+<pre>Information loss: 10, 20, ?, 40 → observed mean 23.33 (true 25 with 30)
+Bias (MNAR):      true 40, 55, 70, 85, 90 → mean 68
+                  weakest two missing → 70, 85, 90 → mean 81.67  (overstated ≈ 14)
+Compounding:      10 columns × 5% missing → 0.95¹⁰ ≈ 0.60 of rows complete</pre></div>
+
+  <h3>Decision workflow for a column</h3>
+  <ol>
+    <li>Missing has a known meaning (no discount, N/A)? → <strong>constant / label</strong></li>
+    <li>Non-essential and mostly empty? → <strong>drop column</strong></li>
+    <li>Few rows, plausibly MCAR? → <strong>drop rows</strong></li>
+    <li>Ordered in time? → <strong>ffill / interpolate</strong></li>
+    <li>Otherwise → <strong>impute</strong>: median (skewed), mode (categorical), group-wise (MAR), KNN, plus indicator</li>
+  </ol>
+
+  <h3>Mean imputation shrinks variance</h3>
+  <div class="example"><span class="tag">Worked example</span>
+<pre>Data: 10, 20, ?, 30, 40     observed mean = 100/4 = 25 → fill 25
+Squared deviations: 225 + 25 + 25 + 225 = 500 (the 25 adds 0)
+Variance observed  = 500/4 = 125   SD 11.18
+Variance imputed   = 500/5 = 100   SD 10.00   → looks less spread than it is</pre></div>
+
+  <h3>Median vs mean (skewed data)</h3>
+  <div class="example"><span class="tag">Worked example</span>
+<pre>Salaries (k PKR): 20, 25, 30, ?, 35, 100
+Mean = 210/5 = 42   (higher than 4 of 5 people, pulled by 100)
+Median = 30         → use median for skewed data (income, prices)</pre></div>
+  <p>When mean and median differ a lot, the data is skewed: prefer the median.</p>
+
+  <h3>Other methods</h3>
+  <ul>
+    <li><strong>Mode</strong> (categorical): Python, SQL, Python, ?, Python, SQL → Python. Risk: over-represents top class; use "Unknown" if missing share is large. <code>mode().iloc[0]</code>, document the tie-break.</li>
+    <li><strong>Group-wise:</strong> CS 65, 70, 75, ? → 70; DS 80, 85, 90, ? → 85. Overall median 77.5 would be too high for CS and too low for DS. Small groups → fall back to overall median.</li>
+    <li><strong>Missing indicator:</strong> create <code>income_missing</code> <em>before</em> imputing (otherwise all zeros). Useful under MNAR.</li>
+    <li><strong>Constant:</strong> only when the constant is true (discount 0). A missing salary filled with 0 collapses the average.</li>
+    <li><strong>Advanced:</strong> KNN (scale features first, slow) · regression / iterative (over-confident) · multiple imputation (best for inference). More complex is not automatically better.</li>
+  </ul>
+
+  <h3>Time series</h3>
+  <div class="tbl"><table>
+    <tr><th>Time</th><th>Temp</th><th>ffill</th><th>bfill</th><th>interpolate</th></tr>
+    <tr><td>10:05</td><td>31</td><td>31</td><td>31</td><td>31</td></tr>
+    <tr><td>10:10</td><td>?</td><td><strong>31</strong></td><td><strong>33</strong></td><td><strong>32</strong></td></tr>
+    <tr><td>10:15</td><td>33</td><td>33</td><td>33</td><td>33</td></tr>
+  </table></div>
+  <p><strong>ffill</strong> for slowly changing states (price, status). <strong>Interpolate</strong> for smooth measurements. <strong>bfill</strong> uses the future: leakage risk in forecasting. Avoid long gaps and never fill across machines (group by machine first).</p>
+
+  <h3>Summary table</h3>
+  <div class="tbl"><table>
+    <tr><th>Technique</th><th>Best for</th><th>Concern</th></tr>
+    <tr><td>Drop rows</td><td>Few rows, MCAR</td><td>Information loss, bias</td></tr>
+    <tr><td>Drop columns</td><td>Non-essential, mostly empty</td><td>Losing signal</td></tr>
+    <tr><td>Constant</td><td>Meaningful default</td><td>False assumptions</td></tr>
+    <tr><td>Mean</td><td>Symmetric numeric</td><td>Outliers, shrinks variance</td></tr>
+    <tr><td>Median</td><td>Skewed numeric</td><td>Ignores relationships</td></tr>
+    <tr><td>Mode</td><td>Categorical</td><td>Over-represents top class</td></tr>
+    <tr><td>Group-wise</td><td>MAR on known group</td><td>Tiny groups unstable</td></tr>
+    <tr><td>Indicator</td><td>Absence is informative</td><td>Extra columns</td></tr>
+    <tr><td>ffill / interpolate</td><td>Ordered time series</td><td>Long gaps, groups</td></tr>
+    <tr><td>KNN / iterative</td><td>Related columns</td><td>Complexity, scaling</td></tr>
+  </table></div>
+  <p>There is no universal missing-percentage threshold that decides the treatment.</p>
+
+  <h3>Data leakage</h3>
+  <p><strong>Leakage</strong> = information unavailable at prediction time influences training or evaluation.</p>
+  <div class="flow"><span>Wrong: mean of ALL data</span><i>→</i><span>fill</span><i>→</i><span>split</span><i>→</i><span>score too optimistic</span></div>
+  <div class="flow"><span>Right: split first</span><i>→</i><span>fit imputer on train</span><i>→</i><span>apply same value to test</span><i>→</i><span>honest score</span></div>
+  <p>Use a scikit-learn <code>Pipeline</code> (SimpleImputer → StandardScaler → model) so <code>fit</code> only sees training data. Never impute a feature using the target or future data.</p>
+</section>
+
+<!-- 8 -->
+<section id="pandas">
+  <h2>Pandas Toolkit<span class="src">Week 5 PDF · Part 6</span></h2>
+  <h3>Eight inspection commands</h3>
+  <div class="tbl"><table>
+    <tr><th>Command</th><th>Reveals</th></tr>
+    <tr><td><code>pd.read_csv(..., na_values=["N/A","unknown","?",-999])</code></td><td>Loads file, converts hidden missing</td></tr>
+    <tr><td><code>df.head()</code> / <code>df.sample(5)</code></td><td>Eyeball rows</td></tr>
+    <tr><td><code>df.shape</code></td><td>Rows, columns (record before and after)</td></tr>
+    <tr><td><code>df.info()</code></td><td>Types, non-null counts; numbers stored as text</td></tr>
+    <tr><td><code>df.describe()</code></td><td>Min, max, quartiles; impossible values</td></tr>
+    <tr><td><code>df.isnull().sum()</code></td><td>Missing per column (<code>.mean()*100</code> for %)</td></tr>
+    <tr><td><code>df.duplicated().sum()</code></td><td>Exact duplicate rows</td></tr>
+    <tr><td><code>df["col"].value_counts()</code></td><td>Category spellings</td></tr>
+  </table></div>
+
+  <h3>Key cleaning calls</h3>
+  <div class="formula">df.drop_duplicates(subset=["id"], keep="first")
+~df["att"].between(0, 100)                         # invalid flag
+df["dept"].str.strip().str.lower().map(mapping)
+df.dropna(subset=["marks"]) / dropna(thresh=3) / dropna(axis=1, thresh=...)
+df.fillna({"discount": 0, "city": "Unknown"})
+df["m"].fillna(df.groupby("dept")["m"].transform("median"))
+df["temp"].ffill() / .bfill() / .interpolate()
+s.clip(low, high)                                  # capping</div>
+
+  <h3>Validate and document</h3>
+  <p>Assertions: expected row count · no NaN in key columns · <code>is_unique</code> IDs · ranges valid · compare <code>describe()</code> before vs after. Keep a <strong>cleaning log</strong> (issue, decision, justification, rows affected). Never edit the raw file; clean in code, not Excel; save the clean file separately.</p>
+
+  <h3>Ten mistakes to avoid</h3>
+  <p>Missing → zero · dropping every NaN row · deleting outliers without investigating · treating matching fields as duplicates · imputing before split · not checking what coerce made NaN · trusting a dataset because it is large · not documenting · imputing before deduplication · overwriting raw data.</p>
+</section>
+
+<!-- 9 -->
+<section id="eda">
+  <h2>EDA: Patterns, Trends, Correlation<span class="src">Week 7 · 16 slides</span></h2>
+  <p><strong>EDA</strong> means looking carefully at data with simple numbers and charts before using it: <strong>Look → Summarise → Ask</strong>. Like a doctor examining before prescribing.</p>
+  <div class="grid2">
+    <div class="card"><h4>Pattern</h4><p>What is common, repeated or unusual. Common values (most score 70–90) · group differences (CS higher attendance) · repeating behaviour (shop busy every Friday) · unusual values (one score of 5).</p></div>
+    <div class="card"><h4>Trend</h4><p>General direction over time: upward (admissions), downward (old phone price), none (weekly attendance). <strong>Seasonality:</strong> pattern repeating at the same time each year (summer sales peak).</p></div>
+    <div class="card"><h4>Correlation</h4><p>Do two variables move together? Positive, negative or none. Measured by <strong>r</strong> from −1 to +1.</p></div>
+  </div>
+
+  <h3>Interpreting r</h3>
+  <div class="tbl"><table>
+    <tr><th>|r|</th><th>Strength</th><th>Meaning</th></tr>
+    <tr><td>below 0.3</td><td>Weak</td><td>Little or no link</td></tr>
+    <tr><td>0.3 to 0.7</td><td>Moderate</td><td>Clear but loose link</td></tr>
+    <tr><td>above 0.7</td><td>Strong</td><td>Tight link (study hours vs marks r = 0.92)</td></tr>
+  </table></div>
+  <p><strong>Sign</strong> gives direction; <strong>size</strong> gives strength.</p>
+  <div class="formula">Pearson r = Σ(x − x̄)(y − ȳ) / √[ Σ(x − x̄)² · Σ(y − ȳ)² ]      (formula not on the slides; included for numericals)</div>
+  <div class="trap"><span class="tag">Correlation ≠ causation</span>Ice-cream sales and drowning rise together in summer. Hot weather (a confounder) causes both. Correlation shows a link, not the reason.</div>
+
+  <h3>Four Python commands</h3>
+  <div class="formula">df.describe()                          # summary of numeric columns
+df.groupby("dept")["marks"].mean()     # compare groups → pattern
+df.plot(x="month", y="sales")          # line chart → trend
+df.corr(numeric_only=True)             # r for every pair</div>
+</section>
+
+<!-- 10 -->
+<section id="case">
+  <h2>Case Study: Student Performance Investigation<span class="src">Model answers to Q1–Q19</span></h2>
+  <p>5,000 students, four departments (CS, DS, SE, EE). Your role: decide what to correct, remove, replace, investigate or keep.</p>
+
+  <details><summary>Q1–Q2. Records vs survey; primary vs secondary.</summary><div class="ans"><p><strong>University records:</strong> attendance, exam marks, department. <strong>Survey:</strong> daily study hours and satisfaction with teaching (not recorded anywhere). Records are <strong>secondary</strong> (collected for administration, reused); the survey is <strong>primary</strong> (collected for this study).</p></div></details>
+
+  <details><summary>Q3–Q4. 200 CS students in the cafeteria.</summary><div class="ans"><p><strong>Convenience sampling</strong> causing <strong>selection bias</strong> (only CS, only cafeteria-goers; three departments not represented). Better: <strong>stratified sampling</strong>: split the 5,000 by department and randomly sample from each in proportion to its size (e.g. if each department has 1,250, take 50 from each).</p></div></details>
+
+  <details><summary>Q5. Identify six or more quality problems in the table.</summary><div class="ans">
+  <div class="tbl"><table>
+    <tr><th>Record</th><th>Problem</th><th>Type</th></tr>
+    <tr><td>S02</td><td>"cs" vs "CS"</td><td>Inconsistent category (case)</td></tr>
+    <tr><td>S03 / S04</td><td>"Data Science" vs "DS"</td><td>Inconsistent label</td></tr>
+    <tr><td>S04</td><td>Study hours blank</td><td>Missing</td></tr>
+    <tr><td>S05</td><td>Attendance 125%</td><td>Invalid (validity)</td></tr>
+    <tr><td>S06</td><td>Marks 800/100</td><td>Invalid, likely typo</td></tr>
+    <tr><td>S07</td><td>Attendance blank</td><td>Missing</td></tr>
+    <tr><td>S08</td><td>Row repeated</td><td>Exact duplicate (uniqueness)</td></tr>
+    <tr><td>S09</td><td>Marks blank</td><td>Missing target</td></tr>
+    <tr><td>S10</td><td>"unknown"</td><td>Hidden missing; text in numeric column</td></tr>
+    <tr><td>S11</td><td>18 h/day study</td><td>Implausible, potential outlier</td></tr>
+  </table></div></div></details>
+
+  <details><summary>Q6. Cleaning order; why remove duplicates before imputation?</summary><div class="ans"><p>Back up → profile → remove duplicates → fix types ("unknown" → NaN) → standardise departments → check rules (S05, S06) → investigate outliers (S11) → handle missing → validate → document. The duplicate S08 would count twice in the mean/median, biasing the values used to fill gaps.</p></div></details>
+
+  <details><summary>Q7–Q8. Duplicate S08; department labels.</summary><div class="ans"><p>Identical rows: keep one, log the removal. If marks differed it becomes a <strong>key duplicate</strong>: do not drop blindly, verify with the source to find the true record. Departments: <strong>standardisation</strong> (strip, upper-case, mapping Data Science → DS). Check <code>value_counts()</code> before to see every variant and after to confirm nothing became NaN or was wrongly merged.</p></div></details>
+
+  <details><summary>Q9–Q11. S05 125%, S06 800 marks, S11 18 hours.</summary><div class="ans"><p><strong>S05:</strong> invalid (breaks 0–100 rule) and also extreme, so both; but validity is the key point. Without the source, set to missing and flag (then impute if needed); do not guess 100. <strong>S06:</strong> do not assume 80 (could be 80 or 8, or 80.0). Check the source; if unavailable set to missing and flag. Do not remove the student, since their other fields are valid. <strong>S11:</strong> not automatically an error; 18 of 24 hours is implausible but possible during exams, or the respondent may have meant per week. Investigate the survey wording or contact the student. IQR may flag it but only as a screen; with small samples the decision needs domain rules, not IQR alone.</p></div></details>
+
+  <details><summary>Q12. Method for each missing entry.</summary><div class="ans"><p><strong>S04 study hours:</strong> group-wise (DS) median plus missing indicator. <strong>S07 attendance:</strong> retrieve from registry records first (it is a records field); otherwise SE median plus flag. <strong>S09 marks:</strong> do not impute: it is the outcome being analysed, so exclude S09 from marks analyses (listwise on that variable), keep the record otherwise. <strong>S10 "unknown":</strong> convert to NaN, then treat like S04 (EE group median + flag).</p></div></details>
+
+  <details><summary>Q13–Q14. Income with 500; missing department.</summary><div class="ans">
+<pre>Income: 40, 45, 50, 55, 60, 65, 500
+Mean   = 815 / 7 = 116.4   (pulled up by 500)
+Median = 55                → use median</pre>
+  <p>500 may be genuine (a wealthy family), so keep it but use a robust statistic. For a missing <strong>department</strong> (categorical) use mode or better "Unknown", or simply look it up in university records. Risk of mode: over-represents the largest department and may misassign the student.</p></div></details>
+
+  <details><summary>Q15. Group-wise imputation of study hours.</summary><div class="ans">
+<pre>CS: 2, 3, 4 → mean 3        DS: 5, 6, 7 → mean 6
+Overall mean = (2+3+4+5+6+7)/6 = 27/6 = 4.5
+Group-wise: CS ? = 3, DS ? = 6</pre>
+  <p>Use group-wise: study hours clearly depend on department (MAR). 4.5 would be too high for CS and too low for DS.</p></div></details>
+
+  <details><summary>Q16–Q17. Sensor at 10:10; six-hour gap.</summary><div class="ans"><p>ffill 31 · bfill 33 · linear interpolation (31 + 33)/2 = <strong>32</strong>. Recommend interpolation for a smoothly changing temperature. For a six-hour gap, interpolation draws a straight line that hides real daily variation; leave it missing and flag it, or use another sensor in the same lab. Avoid bfill if forecasting (uses the future).</p></div></details>
+
+  <details><summary>Q18–Q19. Leakage; four readiness checks.</summary><div class="ans"><p>Computing the mean on all data lets test information leak into training, giving an over-optimistic score. Split first, fit the imputer on training data only, apply the training mean to the test set (a Pipeline enforces this). Checks: row count as expected · no NaN in key columns · unique IDs · values within valid ranges · categories valid (<code>value_counts</code>) · distributions before vs after · every change logged.</p></div></details>
+
+  <details><summary>Final task. Is a dataset reliable just because it has no missing values or duplicates?</summary><div class="ans"><p>No. It can still be biased (convenience sample), inaccurate (valid-looking but wrong values such as 58 for 85), outdated, or distorted by careless imputation. Reliability needs representative collection, validation against sources and domain rules, and documentation.</p></div></details>
+</section>
+
+<!-- 11 -->
+<section id="practice">
+  <h2>Practice questions</h2>
+  <p>Try each one on paper first, then open the answer.</p>
+
+  <h3>Numericals</h3>
+  <details><summary>Q1. Compute IQR fences for 2, 4, 5, 6, 8, 30 (Week 5 knowledge check).</summary><div class="ans">
+<pre>n = 6, linear interpolation (Pandas default)
+Q1 position 0.25 × 5 = 1.25 → 4 + 0.25 × (5 − 4) = 4.25
+Q3 position 0.75 × 5 = 3.75 → 6 + 0.75 × (8 − 6) = 7.5
+IQR = 3.25
+Lower = 4.25 − 4.875 = −0.625     Upper = 7.5 + 4.875 = 12.375
+30 &gt; 12.375 → potential outlier
+(Median-of-halves method: Q1 = 4, Q3 = 8, IQR = 4, fences −2 and 14; 30 still an outlier.
+ State which method you use.)</pre></div></details>
+
+  <details><summary>Q2. Data 5, 15, ?, 25, 35. Fill with the mean and compare variance before and after.</summary><div class="ans">
+<pre>Mean = 80/4 = 20
+Squared deviations: 225 + 25 + 25 + 225 = 500
+Before: 500/4 = 125     After: 500/5 = 100  → variance shrinks by 20%</pre></div></details>
+
+  <details><summary>Q3. Marks 60, 62, 65, 70, ?, 300. Mean or median imputation? Give the value.</summary><div class="ans">
+<pre>Mean = 557/5 = 111.4 (impossible, pulled by 300)   Median = 65
+300 is also invalid (out of 100) → investigate it first; fill with median 65.</pre></div></details>
+
+  <details><summary>Q4. Readings 20, ?, ?, 26. Fill using ffill, bfill and linear interpolation.</summary><div class="ans">
+<pre>ffill:       20, 20, 20, 26
+bfill:       20, 26, 26, 26
+interpolate: 20, 22, 24, 26   (step = (26 − 20)/3 = 2)</pre></div></details>
+
+  <details><summary>Q5. 8 columns, each independently 10% missing. What fraction of rows is complete?</summary><div class="ans"><pre>0.9⁸ ≈ 0.43 → only about 43% of rows survive dropna()</pre></div></details>
+
+  <details><summary>Q6. r = −0.8 between phone use and marks. Interpret.</summary><div class="ans"><p>Strong negative correlation: more phone use goes with lower marks. It does not prove phone use causes lower marks; a third factor (e.g. motivation) may drive both.</p></div></details>
+
+  <h3>Short answers</h3>
+  <details><summary>Q7. Define MCAR, MAR and MNAR with one example each.</summary><div class="ans"><p>MCAR: unrelated to any data (random disk error). MAR: depends on another observed variable (attendance missing more in one recorded department). MNAR: depends on the missing value itself (low scorers don't report marks).</p></div></details>
+  <details><summary>Q8. Why does mean imputation reduce variance?</summary><div class="ans"><p>The filled value equals the mean, so it adds zero to the sum of squared deviations but increases n by one; variance falls and correlations weaken.</p></div></details>
+  <details><summary>Q9. Write a SMART problem statement for reducing student dropout.</summary><div class="ans"><p>Identify first-year students at high risk of dropping out (S), reduce dropout by 15% (M) using existing attendance and grade records (A), protecting fee revenue and outcomes (R), within two semesters (T).</p></div></details>
+  <details><summary>Q10. Name the eight lifecycle stages and say why the cycle is iterative.</summary><div class="ans"><p>Problem formulation, collection, cleaning, EDA, modelling, deployment, monitoring, feedback loop. Iterative because monitoring and feedback (e.g. drift) send you back to earlier stages.</p></div></details>
+  <details><summary>Q11. List the five Responsible AI principles and three sources of bias.</summary><div class="ans"><p>Fairness, transparency, accountability, privacy, security. Bias from skewed training data, flawed algorithm design, human prejudices.</p></div></details>
+  <details><summary>Q12. Bank fraud data: should the single very large transaction be deleted? Are negative amounts errors?</summary><div class="ans"><p>No: in fraud detection the outlier may be the signal; verify, flag, keep. Negative amounts may be refunds; check business rules and transaction type before treating as invalid. Missing fraud labels: exclude those rows from training and evaluation (never impute the target).</p></div></details>
+  <details><summary>Q13. Batch vs API deployment.</summary><div class="ans"><p>Batch: model runs on a schedule over many records (nightly churn scores). API: web service returns a prediction per request in real time (score at login). API needs low latency and scalability.</p></div></details>
+  <details><summary>Q14. Key points of GDPR.</summary><div class="ans"><p>EU, 2018. Explicit consent; rights to access, correct and delete (right to be forgotten); privacy by design; impact assessments for high-risk processing; fines up to 4% of global annual revenue or €20m, whichever is higher.</p></div></details>
+  <details><summary>Q15. Trend vs seasonality.</summary><div class="ans"><p>Trend is the long-term direction (sales rising year on year). Seasonality is a pattern repeating at the same time each period (sales peaking every summer).</p></div></details>
+</section>
+
+<!-- 12 -->
+<section id="last">
+  <h2>Night-before checklist</h2>
+  <p>Tick each item when you can explain it without notes.</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">Data science definition (three components); DS vs analytics vs AI</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">Eight lifecycle stages with the churn example; SMART</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3">Batch vs API deployment; concept, input and prediction drift</label></li>
+    <li><input type="checkbox" id="c4"><label for="c4">Three bias sources; facial recognition figures (34.7% vs 0.8%)</label></li>
+    <li><input type="checkbox" id="c5"><label for="c5">GDPR, HIPAA, PDPA; five Responsible AI principles; XAI and surrogate models</label></li>
+    <li><input type="checkbox" id="c6"><label for="c6">Six collection questions; primary vs secondary table; data dictionary</label></li>
+    <li><input type="checkbox" id="c7"><label for="c7">Four sampling methods; six bias types</label></li>
+    <li><input type="checkbox" id="c8"><label for="c8">Seven quality dimensions; accuracy vs validity</label></li>
+    <li><input type="checkbox" id="c9"><label for="c9">Ten-step cleaning order and why duplicates come before imputation</label></li>
+    <li><input type="checkbox" id="c10"><label for="c10">Exact, key and near duplicates</label></li>
+    <li><input type="checkbox" id="c11"><label for="c11">IQR fences from memory; outlier decision (error, genuine, unsure)</label></li>
+    <li><input type="checkbox" id="c12"><label for="c12">Hidden missing values; missing ≠ zero</label></li>
+    <li><input type="checkbox" id="c13"><label for="c13">MCAR, MAR, MNAR with examples and treatments</label></li>
+    <li><input type="checkbox" id="c14"><label for="c14">Mean shrinks variance (worked); median for skew; mode; group-wise; indicator first</label></li>
+    <li><input type="checkbox" id="c15"><label for="c15">ffill, bfill, interpolate values; bfill leakage</label></li>
+    <li><input type="checkbox" id="c16"><label for="c16">Data leakage and the Pipeline fix</label></li>
+    <li><input type="checkbox" id="c17"><label for="c17">Eight Pandas inspection commands</label></li>
+    <li><input type="checkbox" id="c18"><label for="c18">Pattern, trend, seasonality, correlation; r ranges; causation trap</label></li>
+  </ul>
+  <div class="note"><span class="tag">In the exam hall</span>For cleaning scenarios, always name the problem type (quality dimension), the action, and the reason; "flag and investigate" beats "delete" unless the value is a proven error. For numericals, write the formula, the substitution, then a one-line interpretation.</div>
+</section>
+
+<footer>Prepared from the CS-654 course files in this folder. Numerical examples were recalculated. The Pearson r formula and the DS vs analytics vs AI table are standard material added because the slides leave them out.</footer>
+</main>
+</div>
